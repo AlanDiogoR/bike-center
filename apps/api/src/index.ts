@@ -18,7 +18,7 @@ import { errorHandler } from "./middlewares/errorHandler.js";
 const app = express();
 const PORT = process.env.PORT ?? 3333;
 
-app.use((pinoHttp as (opts: object) => express.RequestHandler)({ logger }));
+app.use((pinoHttp as unknown as (opts: object) => express.RequestHandler)({ logger }));
 app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(cors({ origin: getCorsOrigin() }));
 app.use(compression());

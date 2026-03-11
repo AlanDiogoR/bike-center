@@ -1,8 +1,11 @@
 import type { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET;
-if (!JWT_SECRET) throw new Error("[FATAL] JWT_SECRET env var is required");
+function getJwtSecret(): string {
+  const s = process.env.JWT_SECRET;
+  if (!s) throw new Error("[FATAL] JWT_SECRET env var is required");
+  return s;
+}
 
 export interface JwtPayload {
   userId: string;
@@ -30,7 +33,7 @@ export function authenticateToken(
   }
 
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
+    const decoded = jwt.verify(token, getJwtSecret()) as unknown as JwtPayload;
     req.user = decoded;
     next();
   } catch {
@@ -70,7 +73,7 @@ export function optionalAuth(
 
   if (token) {
     try {
-      const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
+      const decoded = jwt.verify(token, getJwtSecret()) as unknown as JwtPayload;
       req.user = decoded;
     } catch {
       // Ignora token inválido, continua sem usuário

@@ -5,8 +5,11 @@ import { prisma } from "../lib/prisma.js";
 import { logger } from "../lib/logger.js";
 import { isValidCPF, hashCPF } from "../utils/cpf.js";
 
-const JWT_SECRET = process.env.JWT_SECRET;
-if (!JWT_SECRET) throw new Error("[FATAL] JWT_SECRET env var is required");
+function getJwtSecret(): string {
+  const s = process.env.JWT_SECRET;
+  if (!s) throw new Error("[FATAL] JWT_SECRET env var is required");
+  return s;
+}
 const JWT_EXPIRES_IN = "7d";
 
 export async function register(req: Request, res: Response): Promise<void> {
@@ -55,7 +58,7 @@ export async function register(req: Request, res: Response): Promise<void> {
 
   const token = jwt.sign(
     { userId: user.id, email: user.email, role: user.role },
-    JWT_SECRET,
+    getJwtSecret(),
     { expiresIn: JWT_EXPIRES_IN }
   );
   res.status(201).json({ data: { user, token } });
@@ -94,7 +97,7 @@ export async function login(req: Request, res: Response): Promise<void> {
 
   const token = jwt.sign(
     { userId: user.id, email: user.email, role: user.role },
-    JWT_SECRET,
+    getJwtSecret(),
     { expiresIn: JWT_EXPIRES_IN }
   );
   res.json({
