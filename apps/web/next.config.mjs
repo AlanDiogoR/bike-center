@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const apiHostname = process.env.NEXT_PUBLIC_API_HOSTNAME ?? "localhost";
 const nextConfig = {
+  transpilePackages: ["@bikecenter/cart-store", "@bikecenter/shared"],
   images: {
     remotePatterns: [
       { protocol: "https", hostname: apiHostname, pathname: "/uploads/**" },
