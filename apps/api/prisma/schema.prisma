@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
+// ============ CLIENTES ============
+
+model User {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  email        String    @unique
+  password     String
+  name         String
+  phone        String
+  cpfHash      String?    // SHA-256 do CPF (não armazenar em texto plano)
+  role         Role       @default(CUSTOMER)
+  emailVerified Boolean  @default(false)
+  avatarUrl    String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  orders       Order[]
+  addresses    Address[]
+}
+
+model Address {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId
+  user        User     @relation(fields: [userId], references: [id])
+  label       String   // Casa, Trabalho, etc.
+  street      String
+  number      String
+  complement  String?
+  neighborhood String
+  city        String
+  state       String
+  zipCode     String
+  country     String   @default("Brasil")
+  isDefault   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ============ CATÁLOGO ============
+
+model Category {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  slug        String    @unique
+  description String?
+  imageUrl    String?
+  parentId    String?   @db.ObjectId
+  parent      Category? @relation("CategoryToCategory", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  children    Category[] @relation("CategoryToCategory")
+  sortOrder   Int       @default(0)
+  isActive    Boolean   @default(true)
+  products    Product[]
+}
+
+model Product {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  slug             String   @unique
+  description      String
+  shortDescription String?
+  price            Float
+  compareAtPrice   Float?
+  costPrice        Float?
+  stock            Int      @default(0)
+  sku              String?  @unique
+  brand            String?
+  weight          Float?   // kg
+  dimensions       String?  // "LxAxP cm"
+  images           String[]
+  categoryId       String   @db.ObjectId
+  category         Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  isActive         Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([categoryId])
+  @@index([price])
+}
+
+// ============ PEDIDOS ============
+
+model Order {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String?  @db.ObjectId  // null para pedidos guest
+  guestEmail      String?  // Email do visitante para rastreamento
+  user            User?    @relation(fields: [userId], references: [id])
+  status          String   @default("PENDING") // PENDING | PAID | PROCESSING | SHIPPED | DELIVERED | CANCELLED
+  subtotal        Float
+  shipping        Float    @default(0)
+  discount        Float    @default(0)
+  total           Float
+  notes           String?
+  paymentMethod   String?  // PIX | CREDIT | DEBIT | BOLETO
+  trackingCode    String?
+  shippingAddress Json     // Snapshot do endereço no momento do pedido
+  items           Json     // Array de OrderItem
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
+}

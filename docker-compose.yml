@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    ports: ["3333:3333"]
+    env_file: ./apps/api/.env
+    volumes:
+      - uploads:/app/apps/api/uploads
+
+volumes:
+  uploads:

@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "Bike Center",
+    "slug": "bikecenter",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "bikecenter",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "backgroundColor": "#FF8C00"
+    },
+    "plugins": [
+      "expo-router"
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fontes do tema Shopify: heading_font futura_n7, text_font nunito_sans_n6 */
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;1,6..12,400&family=Outfit:wght@600;700&display=swap");
+
+:root {
+  /* Tema Bike Center: laranja #ec6e37, preto, verde CTA */
+  --brand-background: #ffffff;
+  --brand-text: #0a0a0a;
+  --brand-header-bg: #0a0a0a;
+  --brand-header-text: #ffffff;
+  --brand-footer-bg: #0a0a0a;
+  --brand-footer-text: #ffffff;
+  --brand-primary: #ec6e37;
+  --brand-primary-text: #ffffff;
+  --brand-secondary: #ec6e37;
+  --brand-secondary-text: #ffffff;
+  --brand-cta: #22c55e;
+  --brand-cta-hover: #16a34a;
+  --brand-on-sale: #e34f4f;
+  --brand-sold-out: #bebdb9;
+  --brand-success: #22c55e;
+  --brand-warning: #e37e16;
+  --brand-error: #aa2826;
+  --container-max: 1800px;
+  --radius-button: 60px;
+  --radius-input: 10px;
+  --radius-block: 12px;
+}
+
+body {
+  @apply bg-brand-background text-brand-text antialiased;
+}
