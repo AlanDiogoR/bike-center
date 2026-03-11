@@ -15,7 +15,7 @@
   "engines": {
     "node": ">=20"
   },
-  "packageManager": "pnpm@9.0.0",
+  "packageManager": "pnpm@10.0.0",
   "pnpm": {
     "overrides": {
       "@expo/metro-runtime": "5.0.4"
