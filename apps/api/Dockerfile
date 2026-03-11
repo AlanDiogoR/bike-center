@@ -4,6 +4,7 @@ WORKDIR /app
 RUN npm install -g pnpm
 COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
 COPY apps/api/package.json ./apps/api/
+COPY apps/api/prisma ./apps/api/prisma
 COPY packages/ ./packages/
 RUN pnpm install --frozen-lockfile --filter api...
 COPY apps/api ./apps/api
