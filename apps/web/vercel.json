@@ -1,5 +1,4 @@
 {
   "framework": "nextjs",
-  "installCommand": "pnpm install && pnpm run build --filter @bikecenter/cart-store --filter @bikecenter/shared",
-  "buildCommand": "pnpm run build"
+  "buildCommand": "pnpm --filter web run build"
 }

@@ -1,2 +1,2 @@
-export * from "./types.js";
-export { isValidCPF } from "./validators/cpf.js";
+export * from "./types";
+export { isValidCPF } from "./validators/cpf";
