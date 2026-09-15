@@ -9,7 +9,7 @@
     "typecheck": "tsc --noEmit",
     "start": "next start",
     "lint": "next lint",
-    "test": "vitest",
+    "test": "vitest run",
     "test:coverage": "vitest --coverage"
   },
   "dependencies": {

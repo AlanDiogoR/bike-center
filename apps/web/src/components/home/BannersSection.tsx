@@ -1,44 +1,53 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 
-const banners = [
+const tiles = [
   {
     href: "/produtos?category=bicicletas",
-    src: "/banner-bicicleta.jpg",
-    alt: "Bicicletas - OGGI Hacker Sport",
+    src: "/images/hero/showroom-loja.jpg",
+    alt: "Fileira de bikes no showroom da Bike Center Fartura",
+    label: "Bicicletas",
+    caption: "Absolute e MTB na loja",
   },
   {
-    href: "/produtos?search=motul",
-    src: "/banner-oleo.jpg",
-    alt: "Óleos Motul - Manutenção",
+    href: "/produtos",
+    src: "/images/hero/loja-vestuario.jpg",
+    alt: "Absolute, manequim e vestuário de ciclismo na loja em Fartura",
+    label: "Loja e vestuário",
+    caption: "Peças, kits e acessórios",
   },
   {
-    href: "/produtos?search=pneu",
-    src: "/banner-pneu.jpg",
-    alt: "Pneus CEAT Secura Zoom",
+    href: "/produtos?category=motos",
+    src: "/images/produtos/moto-honda-vermelha.jpg",
+    alt: "Moto Honda seminova e capacetes na Bike Center Fartura",
+    label: "Motos e seminovas",
+    caption: "Consulte no WhatsApp",
   },
 ];
 
-/** Banners em grid (3 colunas) - usado na página de busca/categoria */
-export function BannersGridSection() {
+function TileGrid() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {banners.map((b) => (
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+      {tiles.map((b) => (
         <Link
-          key={b.href}
+          key={b.label}
           href={b.href}
-          className="block relative overflow-hidden rounded-xl bg-gray-900 aspect-[16/10] min-h-[120px] group"
+          className="group block relative overflow-hidden rounded-xl bg-gray-900 aspect-[4/5] min-h-[220px]"
         >
           <Image
             src={b.src}
             alt={b.alt}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 640px) 100vw, 33vw"
+            className="object-cover object-center"
           />
-          <div className="absolute inset-0 bg-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
+          <span className="absolute bottom-4 left-4 right-4 text-white drop-shadow">
+            <span className="block font-heading font-bold uppercase tracking-wide text-lg sm:text-xl">
+              {b.label}
+            </span>
+            <span className="block text-sm text-white/85 mt-0.5">{b.caption}</span>
+          </span>
         </Link>
       ))}
     </div>
@@ -47,23 +56,11 @@ export function BannersGridSection() {
 
 export function BannersSection() {
   return (
-    <section className="space-y-6 md:space-y-8">
-      {banners.map((b) => (
-        <Link
-          key={b.href}
-          href={b.href}
-          className="block relative overflow-hidden rounded-xl md:rounded-2xl bg-gray-900 aspect-[2.5/1] md:aspect-[21/6] min-h-[180px] md:min-h-[240px] group"
-        >
-          <Image
-            src={b.src}
-            alt={b.alt}
-            fill
-            sizes="(max-width: 768px) 100vw, 1200px"
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-black/20" />
-        </Link>
-      ))}
+    <section>
+      <h2 className="font-heading font-bold text-xl sm:text-2xl text-brand-text uppercase tracking-[0.015em] mb-4 sm:mb-6">
+        Na loja agora
+      </h2>
+      <TileGrid />
     </section>
   );
 }

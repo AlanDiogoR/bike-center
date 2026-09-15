@@ -30,7 +30,7 @@ export function EmailSignup() {
             Fique por dentro das novidades
           </h3>
           <p className="text-gray-400 text-sm md:text-base mb-6">
-            Cadastre seu e-mail e receba ofertas exclusivas, lançamentos e novidades antes de todos.
+            Ofertas da loja em Fartura, reposições Absolute e avisos de oficina.
           </p>
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <input
@@ -40,12 +40,12 @@ export function EmailSignup() {
               placeholder="seu@email.com"
               required
               disabled={status === "loading" || status === "success"}
-              className="flex-1 px-4 py-3 rounded-full bg-white/10 border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/30"
+              className="flex-1 min-h-11 px-4 py-3 rounded-full bg-white/10 border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/30"
             />
             <button
               type="submit"
               disabled={status === "loading"}
-              className="px-6 py-3 bg-brand-cta hover:bg-brand-ctaHover text-white font-semibold rounded-full transition-colors disabled:opacity-70"
+              className="min-h-11 px-6 py-3 bg-brand-cta hover:bg-brand-ctaHover text-white font-semibold rounded-full transition-colors disabled:opacity-70"
             >
               {status === "loading" ? "Enviando..." : status === "success" ? "Cadastrado!" : "Cadastrar"}
             </button>

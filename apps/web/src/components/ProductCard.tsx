@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
 import type { Product } from "@/lib/api";
+import { formatBRL } from "@/lib/site";
 import { useCartStore } from "@/store/cart.store";
 
 interface ProductCardProps {
@@ -19,17 +20,16 @@ export function ProductCard({ product }: ProductCardProps) {
   const isOnSale = product.compareAtPrice != null && product.compareAtPrice > product.price;
 
   return (
-    <article className="group bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300">
-      <Link href={`/produtos/${product.slug}`} className="block">
+    <article className="group bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col min-w-0">
+      <Link href={`/produtos/${product.slug}`} className="block min-w-0">
         <div className="relative aspect-square bg-gray-50 overflow-hidden">
           {imageUrl && (imageUrl.startsWith("http") || imageUrl.startsWith("/")) ? (
             <Image
               src={imageUrl}
               alt={product.name}
               fill
-              sizes="(max-width: 768px) 100vw, 25vw"
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
-              loading="lazy"
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              className="object-contain object-center p-2"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-gray-400 text-5xl">
@@ -42,28 +42,28 @@ export function ProductCard({ product }: ProductCardProps) {
             </span>
           )}
         </div>
-        <div className="p-4">
+        <div className="p-3 sm:p-4">
           {product.category && (
-            <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+            <span className="text-[10px] sm:text-xs font-medium text-gray-500 uppercase tracking-wide">
               {product.category.name}
             </span>
           )}
-          <h3 className="font-semibold text-gray-900 line-clamp-2 group-hover:text-brand-primary transition-colors mt-1">
+          <h3 className="font-semibold text-sm sm:text-base text-gray-900 line-clamp-2 group-hover:text-brand-primary transition-colors mt-1">
             {product.name}
           </h3>
-          <div className="mt-2 flex items-center gap-2">
-            <span className={`text-lg font-bold ${isOnSale ? "text-brand-onSale" : "text-gray-900"}`}>
-              R$ {product.price.toFixed(2)}
+          <div className="mt-2 flex flex-wrap items-center gap-1.5">
+            <span className={`text-base sm:text-lg font-bold ${isOnSale ? "text-brand-onSale" : "text-gray-900"}`}>
+              {formatBRL(product.price)}
             </span>
             {isOnSale && (
-              <span className="text-sm text-gray-500 line-through">
-                R$ {product.compareAtPrice!.toFixed(2)}
+              <span className="text-xs sm:text-sm text-gray-500 line-through">
+                {formatBRL(product.compareAtPrice!)}
               </span>
             )}
           </div>
         </div>
       </Link>
-      <div className="px-4 pb-4">
+      <div className="px-3 sm:px-4 pb-3 sm:pb-4 mt-auto">
         <button
           type="button"
           onClick={(e) => {
@@ -77,9 +77,9 @@ export function ProductCard({ product }: ProductCardProps) {
             });
             toast.success("Adicionado ao carrinho");
           }}
-          className="w-full flex items-center justify-center gap-2 py-3 bg-brand-cta hover:bg-brand-ctaHover text-white font-semibold rounded-full transition-colors shadow-sm hover:shadow"
+          className="w-full flex items-center justify-center gap-2 min-h-11 py-2.5 bg-brand-cta hover:bg-brand-ctaHover text-white font-semibold rounded-full transition-colors shadow-sm text-sm"
         >
-          <ShoppingCart size={18} />
+          <ShoppingCart size={16} />
           Adicionar
         </button>
       </div>

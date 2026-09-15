@@ -60,5 +60,6 @@ Paleta Bike Center:
 ## SEO
 
 - `generateMetadata` em páginas de produto
-- `sitemap.ts` e `robots.ts`
-- JSON-LD (Product, BreadcrumbList) em detalhes de produto
+- `sitemap.ts` e `robots.ts` (URL sem barra dupla; slugs de `/produtos/[slug]` via API + catálogo seed)
+- JSON-LD Product (PDP), LocalBusiness/Organization (layout) e WebSite (home)
+- Imagem OG padrão: `/images/og-default.jpg`

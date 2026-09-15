@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getProduct } from "@/lib/api";
+import { STORE, siteUrl } from "@/lib/site";
 import { ProductDetail } from "./ProductDetail";
 
 interface Props {
@@ -16,21 +17,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       (product.description.length > 155
         ? product.description.slice(0, 152) + "..."
         : product.description);
+    const image = product.images?.[0] || STORE.defaultOgImage;
     return {
       title: product.name,
       description,
       openGraph: {
-        images: product.images?.[0] ? [product.images[0]] : [],
+        images: [{ url: image, alt: product.name }],
       },
       twitter: {
         card: "summary_large_image",
+        images: [image],
       },
       alternates: {
-        canonical: `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/produtos/${slug}`,
+        canonical: siteUrl(`produtos/${slug}`),
       },
     };
   } catch {
-    return { title: "Produto" };
+    return {
+      title: "Produto",
+      openGraph: { images: [STORE.defaultOgImage] },
+    };
   }
 }
 

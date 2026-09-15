@@ -1,6 +1,7 @@
 "use client";
 
 import { useCartStore } from "@/store/cart.store";
+import { formatBRL } from "@/lib/site";
 import { X, Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,7 +25,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
         />
       )}
       <aside
-        className={`fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-xl z-50 transform transition-transform duration-300 ${
+        className={`fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-xl z-50 transform transition-transform duration-300 overflow-hidden ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
         role="dialog"
@@ -39,7 +40,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
               type="button"
               onClick={onClose}
               aria-label="Fechar carrinho"
-              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              className="min-h-11 min-w-11 inline-flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors"
             >
               <X size={20} />
             </button>
@@ -64,7 +65,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                           alt={item.name}
                           fill
                           sizes="64px"
-                          className="object-cover"
+                          className="object-contain object-center"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
@@ -75,7 +76,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                     <div className="flex-1 min-w-0">
                       <p className="font-medium text-sm truncate">{item.name}</p>
                       <p className="text-brand-text font-bold">
-                        R$ {item.price.toFixed(2)}
+                        {formatBRL(item.price)}
                       </p>
                       <div className="flex items-center gap-1 mt-1">
                         <button
@@ -83,10 +84,10 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                           onClick={() =>
                             updateQuantity(item.id, Math.max(0, item.quantity - 1))
                           }
-                          className="p-1 hover:bg-gray-100 rounded"
+                          className="min-h-11 min-w-11 inline-flex items-center justify-center hover:bg-gray-100 rounded"
                           aria-label="Diminuir quantidade"
                         >
-                          <Minus size={14} />
+                          <Minus size={16} />
                         </button>
                         <span className="text-sm w-6 text-center">
                           {item.quantity}
@@ -96,17 +97,17 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                           onClick={() =>
                             updateQuantity(item.id, item.quantity + 1)
                           }
-                          className="p-1 hover:bg-gray-100 rounded"
+                          className="min-h-11 min-w-11 inline-flex items-center justify-center hover:bg-gray-100 rounded"
                           aria-label="Aumentar quantidade"
                         >
-                          <Plus size={14} />
+                          <Plus size={16} />
                         </button>
                       </div>
                     </div>
                     <button
                       type="button"
                       onClick={() => removeItem(item.id)}
-                      className="text-brand-onSale hover:underline text-sm"
+                      className="text-brand-onSale hover:underline text-sm min-h-11 px-1"
                     >
                       Remover
                     </button>
@@ -119,12 +120,12 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           {items.length > 0 && (
             <div className="p-4 border-t">
               <p className="font-bold text-lg mb-4">
-                Total: R$ {totalPrice().toFixed(2)}
+                Total: {formatBRL(totalPrice())}
               </p>
               <Link
                 href="/carrinho"
                 onClick={onClose}
-                className="block w-full py-3 bg-brand-cta hover:bg-brand-ctaHover text-white font-semibold text-center rounded-full transition-colors"
+                className="block w-full min-h-11 py-3 bg-brand-cta hover:bg-brand-ctaHover text-white font-semibold text-center rounded-full transition-colors"
               >
                 Finalizar compra
               </Link>
