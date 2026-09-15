@@ -10,8 +10,8 @@ export function StoreVisitSection() {
           <div className="grid grid-cols-2 gap-3 min-w-0">
             <div className="relative col-span-2 aspect-[4/3] rounded-2xl overflow-hidden bg-gray-200">
               <Image
-                src="/images/equipe/atendente-capacetes.jpg"
-                alt="Atendimento na Bike Center Fartura — capacetes X11"
+                src="/images/catalog/ambiente/03-equipe-trio.webp"
+                alt="Equipe da Bike Center Fartura na entrada da loja"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover object-[center_20%]"
@@ -19,8 +19,8 @@ export function StoreVisitSection() {
             </div>
             <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-gray-200">
               <Image
-                src="/images/oficina/manutencao-honda.jpg"
-                alt="Oficina na loja — manutenção em motor Honda"
+                src="/images/catalog/ambiente/02-oficina-tambores-oleo.webp"
+                alt="Oficina da Bike Center — tambores de óleo e bancada de ferramentas"
                 fill
                 sizes="(max-width: 768px) 50vw, 25vw"
                 className="object-cover"

@@ -7,8 +7,8 @@ import { COPY, STORE, whatsappUrl } from "@/lib/site";
 
 export function ProductGrid() {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["products", { page: 1, limit: 8 }],
-    queryFn: () => getProducts({ page: 1, limit: 8 }),
+    queryKey: ["products", { page: 1, limit: 12 }],
+    queryFn: () => getProducts({ page: 1, limit: 12 }),
   });
 
   if (isLoading) {

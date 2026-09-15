@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
-import { SEED_CATEGORIES, SEED_PRODUCTS } from "./catalog";
+import { RETIRED_PRODUCT_SLUGS, SEED_CATEGORIES, SEED_PRODUCTS } from "./catalog";
 
 const prisma = new PrismaClient();
 
@@ -75,6 +75,13 @@ async function main() {
       },
     });
     categoryIds.set(cat.slug, row.id);
+  }
+
+  for (const slug of RETIRED_PRODUCT_SLUGS) {
+    await prisma.product.updateMany({
+      where: { slug },
+      data: { isActive: false },
+    });
   }
 
   for (const product of SEED_PRODUCTS) {
