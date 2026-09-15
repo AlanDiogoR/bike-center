@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
 import { useCartStore } from "@/store/cart.store";
+import { formatBRL } from "@/lib/site";
 import { toast } from "sonner";
 import { checkoutSchema, type CheckoutForm } from "./checkout.schema";
 import { formatCpf, formatCep, formatPhone, fetchCep } from "./checkout.utils";
@@ -278,14 +279,14 @@ export function CheckoutPage() {
                 <li key={item.id} className="flex gap-3">
                   <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-white flex-shrink-0">
                     {item.imageUrl && (item.imageUrl.startsWith("http") || item.imageUrl.startsWith("/")) ? (
-                      <Image src={item.imageUrl} alt={item.name} fill className="object-cover" sizes="56px" unoptimized={item.imageUrl.startsWith("http")} />
+                      <Image src={item.imageUrl} alt={item.name} fill className="object-contain object-center" sizes="56px" unoptimized={item.imageUrl.startsWith("http")} />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-xl">🚴</div>
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-sm truncate">{item.name}</p>
-                    <p className="text-gray-600 text-xs">{item.quantity}x R$ {item.price.toFixed(2)}</p>
+                    <p className="text-gray-600 text-xs">{item.quantity}x {formatBRL(item.price)}</p>
                   </div>
                 </li>
               ))}
@@ -293,7 +294,7 @@ export function CheckoutPage() {
             <div className="border-t border-gray-200 pt-4">
               <p className="flex justify-between text-lg font-bold">
                 <span>Total</span>
-                <span>R$ {totalPrice().toFixed(2)}</span>
+                <span>{formatBRL(totalPrice())}</span>
               </p>
             </div>
             <button

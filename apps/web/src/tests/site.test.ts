@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { COPY, joinUrl, stripTrailingSlash, WHATSAPP } from "@/lib/site";
+import { COPY, formatBRL, joinUrl, stripTrailingSlash, WHATSAPP } from "@/lib/site";
 import { CATALOG_PRODUCT_SLUGS } from "@/lib/catalog";
 
 describe("joinUrl / stripTrailingSlash", () => {
@@ -35,6 +35,14 @@ describe("catálogo seed", () => {
   it("tem slugs únicos para o sitemap de /produtos/[slug]", () => {
     expect(CATALOG_PRODUCT_SLUGS.length).toBeGreaterThanOrEqual(8);
     expect(new Set(CATALOG_PRODUCT_SLUGS).size).toBe(CATALOG_PRODUCT_SLUGS.length);
+  });
+});
+
+describe("formatBRL", () => {
+  it("formata em real brasileiro", () => {
+    const compact = (value: number) => formatBRL(value).replace(/\s/g, "");
+    expect(compact(2590)).toBe("R$2.590,00");
+    expect(compact(9.9)).toBe("R$9,90");
   });
 });
 

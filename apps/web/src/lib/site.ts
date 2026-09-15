@@ -80,6 +80,10 @@ export function apiUrl(path = ""): string {
   return joinUrl(getApiUrl(), path);
 }
 
+export function formatBRL(value: number): string {
+  return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+}
+
 export const COPY = {
   announcementPreferred: "Envio pelo Mercado Livre · Retire na loja em Fartura-SP",
   announcementAlt: "Compras acima de R$ 250 — frete grátis via Mercado Livre (Brasil)",

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
 import type { Product } from "@/lib/api";
+import { formatBRL } from "@/lib/site";
 import { useCartStore } from "@/store/cart.store";
 
 interface ProductCardProps {
@@ -28,7 +29,7 @@ export function ProductCard({ product }: ProductCardProps) {
               alt={product.name}
               fill
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-              className="object-cover"
+              className="object-contain object-center p-2"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-gray-400 text-5xl">
@@ -52,11 +53,11 @@ export function ProductCard({ product }: ProductCardProps) {
           </h3>
           <div className="mt-2 flex flex-wrap items-center gap-1.5">
             <span className={`text-base sm:text-lg font-bold ${isOnSale ? "text-brand-onSale" : "text-gray-900"}`}>
-              R$ {product.price.toFixed(2)}
+              {formatBRL(product.price)}
             </span>
             {isOnSale && (
               <span className="text-xs sm:text-sm text-gray-500 line-through">
-                R$ {product.compareAtPrice!.toFixed(2)}
+                {formatBRL(product.compareAtPrice!)}
               </span>
             )}
           </div>

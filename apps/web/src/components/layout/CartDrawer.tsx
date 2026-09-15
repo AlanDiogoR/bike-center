@@ -1,6 +1,7 @@
 "use client";
 
 import { useCartStore } from "@/store/cart.store";
+import { formatBRL } from "@/lib/site";
 import { X, Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -64,7 +65,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                           alt={item.name}
                           fill
                           sizes="64px"
-                          className="object-cover"
+                          className="object-contain object-center"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
@@ -75,7 +76,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                     <div className="flex-1 min-w-0">
                       <p className="font-medium text-sm truncate">{item.name}</p>
                       <p className="text-brand-text font-bold">
-                        R$ {item.price.toFixed(2)}
+                        {formatBRL(item.price)}
                       </p>
                       <div className="flex items-center gap-1 mt-1">
                         <button
@@ -119,7 +120,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           {items.length > 0 && (
             <div className="p-4 border-t">
               <p className="font-bold text-lg mb-4">
-                Total: R$ {totalPrice().toFixed(2)}
+                Total: {formatBRL(totalPrice())}
               </p>
               <Link
                 href="/carrinho"

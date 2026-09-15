@@ -1,6 +1,7 @@
 "use client";
 
 import { useCartStore } from "@/store/cart.store";
+import { formatBRL } from "@/lib/site";
 import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, ShoppingBag } from "lucide-react";
@@ -47,7 +48,7 @@ export function CartPage() {
                     alt={item.name}
                     fill
                     sizes="96px"
-                    className="object-cover"
+                    className="object-contain object-center"
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-2xl">
@@ -58,7 +59,7 @@ export function CartPage() {
               <div className="flex-1 min-w-0">
                 <h3 className="font-semibold">{item.name}</h3>
                 <p className="text-brand-text font-bold">
-                  R$ {item.price.toFixed(2)}
+                  {formatBRL(item.price)}
                 </p>
                 <div className="flex items-center gap-2 mt-2">
                   <button
@@ -97,7 +98,7 @@ export function CartPage() {
           <div className="p-6 bg-brand-dialog rounded-[12px] border border-gray-100 sticky top-24">
             <h3 className="font-semibold text-lg mb-4">Resumo</h3>
             <p className="text-xl font-bold text-brand-text mb-6">
-              Total: R$ {totalPrice().toFixed(2)}
+              Total: {formatBRL(totalPrice())}
             </p>
             <Link
               href="/checkout"

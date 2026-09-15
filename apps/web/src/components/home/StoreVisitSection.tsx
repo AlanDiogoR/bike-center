@@ -7,14 +7,28 @@ export function StoreVisitSection() {
     <section className="bg-gray-50 border-y border-gray-100">
       <div className="max-w-container mx-auto px-4 sm:px-6 py-10 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center">
-          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-gray-200 min-h-[200px]">
-            <Image
-              src="/images/equipe/atendente-capacetes.jpg"
-              alt="Atendimento na Bike Center Fartura — capacetes e equipe"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-            />
+          <div className="grid grid-cols-2 gap-3 min-w-0">
+            <div className="relative col-span-2 aspect-[4/3] rounded-2xl overflow-hidden bg-gray-200">
+              <Image
+                src="/images/equipe/atendente-capacetes.jpg"
+                alt="Atendimento na Bike Center Fartura — capacetes X11"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover object-[center_20%]"
+              />
+            </div>
+            <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-gray-200">
+              <Image
+                src="/images/oficina/manutencao-honda.jpg"
+                alt="Oficina na loja — manutenção em motor Honda"
+                fill
+                sizes="(max-width: 768px) 50vw, 25vw"
+                className="object-cover"
+              />
+            </div>
+            <p className="text-xs text-gray-500 self-center leading-snug">
+              Oficina no mesmo endereço — foto real da bancada.
+            </p>
           </div>
           <div className="min-w-0">
             <h2 className="font-heading font-bold text-xl sm:text-2xl md:text-3xl text-brand-text uppercase tracking-[0.015em] mb-3">

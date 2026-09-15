@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { COPY, STORE, whatsappUrl } from "@/lib/site";
@@ -7,25 +5,25 @@ import { COPY, STORE, whatsappUrl } from "@/lib/site";
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-black">
-      <div className="relative min-h-[420px] h-[min(70svh,640px)] sm:min-h-[480px] md:min-h-[560px]">
+      <div className="relative min-h-[420px] h-[min(72svh,620px)] md:h-[min(72svh,640px)]">
         <Image
           src={STORE.heroImage}
           alt="Fila de mountain bikes Absolute no showroom da Bike Center Fartura"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[center_40%]"
+          className="object-cover object-[72%_42%] md:object-[78%_40%]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-black/20" />
-        <div className="absolute inset-0 flex items-end sm:items-center">
-          <div className="w-full max-w-container mx-auto px-4 sm:px-6 pb-8 sm:pb-0">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/15 md:bg-gradient-to-r md:from-black/80 md:via-black/45 md:to-black/10" />
+        <div className="absolute inset-0 flex items-end md:items-center">
+          <div className="w-full max-w-container mx-auto px-4 sm:px-6 pb-8 md:pb-0">
             <p className="text-brand-primary font-semibold text-xs sm:text-sm uppercase tracking-wide mb-2">
               {STORE.tagline}
             </p>
-            <h1 className="font-heading font-bold text-white text-[1.65rem] leading-tight sm:text-4xl md:text-5xl uppercase tracking-tight max-w-2xl">
+            <h1 className="font-heading font-bold text-white text-[1.65rem] leading-tight sm:text-4xl md:text-5xl uppercase tracking-tight max-w-xl">
               {COPY.heroTitle}
             </h1>
-            <p className="mt-3 text-gray-100 text-sm sm:text-lg max-w-xl">
+            <p className="mt-3 text-gray-100 text-sm sm:text-lg max-w-md">
               {COPY.heroSubtitle}
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-3 max-w-md sm:max-w-none">

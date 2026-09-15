@@ -17,7 +17,7 @@ import { toast } from "sonner";
 import * as Accordion from "@radix-ui/react-accordion";
 import type { Product } from "@/lib/api";
 import { useCartStore } from "@/store/cart.store";
-import { COPY, STORE, getSiteUrl, siteUrl, whatsappUrl } from "@/lib/site";
+import { COPY, STORE, formatBRL, getSiteUrl, siteUrl, whatsappUrl } from "@/lib/site";
 
 interface ProductDetailProps {
   product: Product;
@@ -122,7 +122,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   priority
-                  className="object-cover"
+                  className="object-contain object-center p-3 sm:p-6"
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-8xl bg-gray-50">
@@ -160,7 +160,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
                       alt={`${product.name} ${i + 1}`}
                       fill
                       sizes="80px"
-                      className="object-cover"
+                      className="object-contain object-center p-0.5"
                     />
                   </button>
                 ))}
@@ -183,12 +183,12 @@ export function ProductDetail({ product }: ProductDetailProps) {
 
             <div className="flex flex-wrap items-baseline gap-3 mb-4">
               <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-text">
-                R$ {product.price.toFixed(2)}
+                {formatBRL(product.price)}
               </span>
               {hasComparePrice && (
                 <>
                   <span className="text-lg sm:text-xl text-gray-500 line-through">
-                    R$ {product.compareAtPrice!.toFixed(2)}
+                    {formatBRL(product.compareAtPrice!)}
                   </span>
                   <span className="px-2.5 py-1 bg-brand-onSale/15 text-brand-onSale text-sm font-bold rounded">
                     -{discountPercent}%
@@ -201,6 +201,14 @@ export function ProductDetail({ product }: ProductDetailProps) {
             </p>
 
             <div className="flex flex-col gap-3">
+              <a
+                href={whatsappUrl("claro", `Olá! Tenho interesse em ${product.name} (${product.slug}).`)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center min-h-12 py-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-xl text-center text-base sm:text-lg shadow-lg"
+              >
+                {COPY.ctaWhatsApp}
+              </a>
               <button
                 type="button"
                 onClick={() => {
@@ -214,19 +222,11 @@ export function ProductDetail({ product }: ProductDetailProps) {
                   toast.success("Adicionado ao carrinho");
                 }}
                 disabled={product.stock <= 0}
-                className="w-full flex items-center justify-center gap-3 min-h-12 py-3 bg-brand-cta hover:bg-brand-ctaHover disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded-xl transition-colors shadow-lg text-base sm:text-lg"
+                className="w-full flex items-center justify-center gap-3 min-h-12 py-3 border-2 border-brand-text/15 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed text-brand-text font-bold rounded-xl transition-colors text-base"
               >
-                <ShoppingCart size={22} />
+                <ShoppingCart size={20} />
                 Adicionar ao carrinho
               </button>
-              <a
-                href={whatsappUrl("claro", `Olá! Tenho interesse em ${product.name} (${product.slug}).`)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full flex items-center justify-center min-h-12 py-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-xl text-center"
-              >
-                {COPY.ctaWhatsApp}
-              </a>
             </div>
 
             <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-6 mt-6 py-6 border-y border-gray-100">
