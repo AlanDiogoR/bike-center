@@ -16,6 +16,7 @@ import {
 import { toast } from "sonner";
 import * as Accordion from "@radix-ui/react-accordion";
 import type { Product } from "@/lib/api";
+import { galleryImages } from "@/lib/product-images";
 import { useCartStore } from "@/store/cart.store";
 import { COPY, STORE, formatBRL, getSiteUrl, siteUrl, whatsappUrl } from "@/lib/site";
 
@@ -31,7 +32,7 @@ function resolveImage(src: string, baseUrl: string): string {
 
 export function ProductDetail({ product }: ProductDetailProps) {
   const addItem = useCartStore((s) => s.addItem);
-  const images = (product.images ?? []).filter((i) => i && (i.startsWith("http") || i.startsWith("/")));
+  const images = galleryImages(product.images);
   const [activeIndex, setActiveIndex] = useState(0);
   const imageUrl = images[activeIndex] ?? images[0];
   const baseUrl = getSiteUrl();
@@ -144,7 +145,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
             </div>
             {images.length > 1 && (
               <div className="flex gap-2 mt-3 overflow-x-auto pb-2 -mx-1 px-1 snap-x">
-                {images.slice(0, 8).map((img, i) => (
+                {images.slice(0, 12).map((img, i) => (
                   <button
                     type="button"
                     key={`${img}-${i}`}
@@ -216,7 +217,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
                     id: product.id,
                     name: product.name,
                     price: product.price,
-                    imageUrl: product.images?.[0] ?? "",
+                    imageUrl: images[0] ?? "",
                     quantity: 1,
                   });
                   toast.success("Adicionado ao carrinho");
@@ -300,6 +301,12 @@ export function ProductDetail({ product }: ProductDetailProps) {
               </Accordion.Header>
               <Accordion.Content className="px-4 sm:px-6 pb-6">
                 <dl className="space-y-3 text-sm">
+                  {product.brand && (
+                    <div className="flex justify-between py-2 border-b border-gray-100 gap-4">
+                      <dt className="text-gray-600">Marca</dt>
+                      <dd className="font-medium text-right">{product.brand}</dd>
+                    </div>
+                  )}
                   {product.category && (
                     <div className="flex justify-between py-2 border-b border-gray-100 gap-4">
                       <dt className="text-gray-600">Categoria</dt>

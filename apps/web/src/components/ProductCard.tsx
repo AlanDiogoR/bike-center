@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
 import type { Product } from "@/lib/api";
+import { pickListingImage } from "@/lib/product-images";
 import { formatBRL } from "@/lib/site";
 import { useCartStore } from "@/store/cart.store";
 
@@ -15,7 +16,7 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   const addItem = useCartStore((s) => s.addItem);
 
-  const imageUrl = product.images?.[0] ?? "";
+  const imageUrl = pickListingImage(product.images);
 
   const isOnSale = product.compareAtPrice != null && product.compareAtPrice > product.price;
 
@@ -61,6 +62,7 @@ export function ProductCard({ product }: ProductCardProps) {
               </span>
             )}
           </div>
+          <p className="text-[11px] text-gray-500 mt-1">Vitrine — consulte WhatsApp</p>
         </div>
       </Link>
       <div className="px-3 sm:px-4 pb-3 sm:pb-4 mt-auto">
@@ -72,7 +74,7 @@ export function ProductCard({ product }: ProductCardProps) {
               id: product.id,
               name: product.name,
               price: product.price,
-              imageUrl: product.images?.[0] ?? "",
+              imageUrl: pickListingImage(product.images),
               quantity: 1,
             });
             toast.success("Adicionado ao carrinho");
