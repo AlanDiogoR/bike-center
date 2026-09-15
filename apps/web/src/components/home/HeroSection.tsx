@@ -20,8 +20,9 @@ export function HeroSection() {
             <p className="text-brand-primary font-semibold text-xs sm:text-sm uppercase tracking-wide mb-2">
               {STORE.tagline}
             </p>
-            <h1 className="font-heading font-bold text-white text-[1.65rem] leading-tight sm:text-4xl md:text-5xl uppercase tracking-tight max-w-xl">
-              {COPY.heroTitle}
+            <h1 className="font-heading font-bold text-white text-[1.65rem] leading-[1.15] sm:text-4xl md:text-5xl uppercase tracking-tight max-w-xl">
+              Motos, bikes e oficina
+              <span className="block whitespace-nowrap">em Fartura-SP</span>
             </h1>
             <p className="mt-3 text-gray-100 text-sm sm:text-lg max-w-md">
               {COPY.heroSubtitle}
