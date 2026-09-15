@@ -29,6 +29,19 @@ describe("catálogo PDP", () => {
     }
   });
 
+  it("leva 2: Barbie com galeria e MTB azul com outdoor no hero", () => {
+    expect(CATALOG_PRODUCT_SLUGS).toContain("bike-infantil-barbie");
+    expect(CATALOG_PRODUCT_SLUGS).toContain("mtb-azul");
+    expect(CATALOG_PRODUCT_SLUGS).toContain("bicicletas-infantis");
+    const barbie = SEED_PRODUCTS.find((p) => p.slug === "bike-infantil-barbie");
+    const mtb = SEED_PRODUCTS.find((p) => p.slug === "mtb-azul");
+    expect(barbie?.images).toHaveLength(5);
+    expect(barbie?.images[0]).toMatch(/01-hero/);
+    expect(mtb?.images).toHaveLength(2);
+    expect(mtb?.images[0]).toMatch(/01-outdoor/);
+    expect(pickListingImage(mtb?.images)).toMatch(/outdoor/);
+  });
+
   it("motos e peças com várias fotos têm galeria", () => {
     const cg = SEED_PRODUCTS.find((p) => p.slug === "honda-cg-fan-vermelha-2010");
     const x11 = SEED_PRODUCTS.find((p) => p.slug === "capacete-x11-revo-preto-fosco");
