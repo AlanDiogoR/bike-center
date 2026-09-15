@@ -132,6 +132,20 @@ export const SEED_PRODUCTS: SeedProduct[] = [
     images: ["/images/produtos/flex-2-0-amarela.jpg", "/images/produtos/flex-2-0-amarela-2.jpg"],
   },
   {
+    name: "Oggi Float Sport azul MTB",
+    slug: "mtb-azul",
+    sku: "BC-OGGI-FLOAT-AZUL",
+    brand: "Oggi",
+    categorySlug: "bicicletas",
+    price: 1890,
+    stock: 1,
+    shortDescription: "Oggi Float Sport azul — foto real da loja. Consulte tamanho e preço no WhatsApp.",
+    description:
+      "Mountain bike Oggi Float Sport azul fotografada na Bike Center Fartura (outdoor + detalhe do quadro). Preço de vitrine placeholder — confirme aro, tamanho e valor no WhatsApp. " +
+      VITRINE,
+    images: catalogImages("produtos", "mtb-azul", ["01-outdoor.webp", "02-quadro.webp"]),
+  },
+  {
     name: "Honda Biz 110i preta 2016",
     slug: "honda-biz-125-preta",
     sku: "BC-HONDA-BIZ-110I-2016",
@@ -418,6 +432,26 @@ export const SEED_PRODUCTS: SeedProduct[] = [
       "Cantinho kids da Bike Center: bicicletas infantis. Tag de vitrine a partir de R$ 349 — confirme o modelo no WhatsApp. " +
       VITRINE,
     images: ["/images/produtos/bikes-infantis.jpg"],
+  },
+  {
+    name: "Bicicleta infantil Barbie Nathor",
+    slug: "bike-infantil-barbie",
+    sku: "BC-NATHOR-BARBIE",
+    brand: "Nathor",
+    categorySlug: "infantil",
+    price: 499,
+    stock: 1,
+    shortDescription: "Bike infantil Barbie Nathor com rodinhas e cadeirinha. Consulte o preço no WhatsApp.",
+    description:
+      "Bicicleta infantil Barbie (Nathor) rosa, com cestinha, squeeze, rodinhas e cadeirinha Barbie. Fotos reais da loja em Fartura. Preço placeholder de vitrine — confirme aro e valor no WhatsApp. " +
+      VITRINE,
+    images: catalogImages("produtos", "bike-infantil-barbie", [
+      "01-hero.webp",
+      "02-frente.webp",
+      "03-selim.webp",
+      "04-quadro.webp",
+      "05-cadeirinha.webp",
+    ]),
   },
   {
     name: "Pneus MTB Pirelli Scorpion e Chaoyang",
