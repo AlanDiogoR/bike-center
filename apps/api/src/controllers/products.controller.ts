@@ -11,7 +11,8 @@ export async function listProducts(req: Request, res: Response): Promise<void> {
   const minPrice = query.minPrice != null ? Number(query.minPrice) : undefined;
   const maxPrice = query.maxPrice != null ? Number(query.maxPrice) : undefined;
   const search = typeof query.search === "string" ? query.search.trim() : undefined;
-  const isActive = query.isActive !== undefined ? Boolean(query.isActive) : undefined;
+  // Vitrine pública: só ativos, salvo o admin pedir explicitamente.
+  const isActive = query.isActive !== undefined ? Boolean(query.isActive) : true;
 
   const where: Record<string, unknown> = {};
 

@@ -4,8 +4,8 @@ import Link from "next/link";
 const tiles = [
   {
     href: "/produtos?category=bicicletas",
-    src: "/images/hero/showroom-loja.jpg",
-    alt: "Fileira de bikes no showroom da Bike Center Fartura",
+    src: "/images/catalog/ambiente/01-showroom-absolute-mtb.webp",
+    alt: "Fila de mountain bikes Absolute no showroom da Bike Center Fartura",
     label: "Bicicletas",
     caption: "Absolute e MTB na loja",
   },
@@ -18,8 +18,8 @@ const tiles = [
   },
   {
     href: "/produtos?category=motos",
-    src: "/images/produtos/moto-honda-vermelha.jpg",
-    alt: "Moto Honda seminova e capacetes na Bike Center Fartura",
+    src: "/images/catalog/motos/honda-bros-azul/02-capa-feed.webp",
+    alt: "Honda Bros 160 azul seminova na Bike Center Fartura",
     label: "Motos e seminovas",
     caption: "Consulte no WhatsApp",
   },
