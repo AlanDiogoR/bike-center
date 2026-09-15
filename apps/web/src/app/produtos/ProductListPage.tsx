@@ -2,7 +2,6 @@
 
 import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import Link from "next/link";
 import { getProducts, getCategories } from "@/lib/api";
 import { ProductCard } from "@/components/ProductCard";
 import { BannersGridSection } from "@/components/home/BannersSection";
@@ -33,19 +32,19 @@ export function ProductListPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <section className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-16 md:py-24">
+      <section className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-10 sm:py-16 md:py-24">
         <div className="max-w-container mx-auto px-4 sm:px-6">
-          <h1 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl uppercase tracking-wide mb-4">
+          <h1 className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl uppercase tracking-wide mb-4">
             {search
               ? `Busca: ${search}`
               : category
                 ? categories.find((c) => c.slug === category)?.name ?? "Produtos"
                 : "Catálogo de Produtos"}
           </h1>
-          <p className="text-gray-300 text-lg max-w-2xl mb-2">
-            Bicicletas, peças, acessórios e tudo para sua aventura sobre duas rodas.
+          <p className="text-gray-300 text-base sm:text-lg max-w-2xl mb-2">
+            Motos, bikes, peças e oficina — loja física em Fartura-SP.
           </p>
-          <p className="text-brand-primary font-semibold">Frete grátis em compras acima de R$ 199</p>
+          <p className="text-brand-primary font-semibold">Envio pelo Mercado Livre · Retire na loja em Fartura-SP</p>
         </div>
       </section>
 
@@ -59,7 +58,7 @@ export function ProductListPage() {
 
       <div className="max-w-container mx-auto px-4 sm:px-6 py-10">
         {isLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
             {[...Array(8)].map((_, i) => (
               <div
                 key={i}
@@ -87,7 +86,7 @@ export function ProductListPage() {
             <p className="text-gray-600 mb-6">
               <span className="font-semibold text-gray-800">{meta?.total ?? 0}</span> produtos encontrados
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
               {products.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}

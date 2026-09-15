@@ -31,5 +31,9 @@
 }
 
 body {
-  @apply bg-brand-background text-brand-text antialiased;
+  @apply bg-brand-background text-brand-text antialiased overflow-x-hidden;
+}
+
+img, video, svg {
+  max-width: 100%;
 }

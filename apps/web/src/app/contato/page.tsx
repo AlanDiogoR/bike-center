@@ -1,6 +1,8 @@
+import { STORE, WHATSAPP, whatsappUrl } from "@/lib/site";
+
 export const metadata = {
   title: "Fale Conosco",
-  description: "Entre em contato com a Bike Center.",
+  description: `Bike Center Fartura — ${STORE.street}. WhatsApp Claro ${WHATSAPP.claro.display} e Vivo ${WHATSAPP.vivo.display}.`,
 };
 
 export default function ContatoPage() {
@@ -11,46 +13,76 @@ export default function ContatoPage() {
       </h1>
       <div className="max-w-xl space-y-4 text-gray-700">
         <p>
-          Estamos à disposição para atendê-lo. Entre em contato:
+          Loja física em Fartura-SP. Peça orçamento no WhatsApp, visite o showroom ou compre pelo Mercado Livre.
         </p>
+        <p>
+          <strong>Endereço:</strong> {STORE.street} — {STORE.neighborhood}, {STORE.city}/{STORE.state} · CEP{" "}
+          {STORE.postalCode}
+        </p>
+        <p>
+          <strong>Horário:</strong> {STORE.hoursShort}
+        </p>
+        <p>
+          <strong>WhatsApp Claro:</strong>{" "}
+          <a href={whatsappUrl("claro")} className="text-brand-primary hover:underline">
+            {WHATSAPP.claro.display}
+          </a>
+        </p>
+        <p>
+          <strong>WhatsApp Vivo:</strong>{" "}
+          <a href={whatsappUrl("vivo")} className="text-brand-primary hover:underline">
+            {WHATSAPP.vivo.display}
+          </a>
+        </p>
+        <p className="text-sm text-gray-500">Resposta rápida no horário da loja.</p>
         <p>
           <strong>E-mail:</strong>{" "}
-          <a href="mailto:bikecenterfartura@gmail.com" className="text-brand-primary hover:underline">
-            bikecenterfartura@gmail.com
-          </a>
-        </p>
-        <p>
-          <strong>WhatsApp:</strong>{" "}
-          <a href="https://wa.me/5514996325919" className="text-brand-primary hover:underline">
-            (14) 99632-5919
-          </a>
-        </p>
-        <p>
-          <strong>WhatsApp Tim:</strong>{" "}
-          <a href="https://wa.me/5514991667793" className="text-brand-primary hover:underline">
-            (14) 99166-7793
+          <a href={`mailto:${STORE.email}`} className="text-brand-primary hover:underline">
+            {STORE.email}
           </a>
         </p>
         <p>
           <strong>Instagram:</strong>{" "}
           <a
-            href="https://www.instagram.com/bikecenterfartura/"
+            href={STORE.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="text-brand-primary hover:underline"
           >
-            @bikecenterfartura
+            {STORE.instagramHandle}
           </a>
         </p>
         <p>
-          <strong>TikTok:</strong>{" "}
+          <strong>Mercado Livre:</strong>{" "}
           <a
-            href="https://www.tiktok.com/@bikecenterfartura"
+            href={STORE.mercadoLivreUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="text-brand-primary hover:underline"
           >
-            @bikecenterfartura
+            Ver anúncios da loja
+          </a>
+        </p>
+        <p>
+          <strong>Maps:</strong>{" "}
+          <a
+            href={STORE.mapsDirUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-primary hover:underline"
+          >
+            Como chegar
+          </a>
+        </p>
+        <p>
+          <strong>Hub de contatos:</strong>{" "}
+          <a
+            href={STORE.hubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-primary hover:underline"
+          >
+            contatobikecenter.netlify.app
           </a>
         </p>
       </div>
