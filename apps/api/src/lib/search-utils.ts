@@ -53,6 +53,14 @@ const SYNONYMS: Record<string, string[]> = {
   roda: ["aro", "rodas"],
   corrente: ["correntes", "transmissão"],
   bomba: ["bombas", "inflador"],
+  capacete: ["capacetes", "helmet"],
+  capacetes: ["capacete"],
+  moto: ["motos", "motocicleta"],
+  motos: ["moto"],
+  relacao: ["relação", "kit", "transmissao", "transmissão", "corrente"],
+  relação: ["relacao", "kit", "transmissao"],
+  x11: ["capacete", "luva"],
+  militec: ["oleo", "óleo", "condicionador"],
 };
 
 /**
