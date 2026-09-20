@@ -1,23 +1,28 @@
 "use client";
 
 import { useState } from "react";
+import { COPY, STORE, WHATSAPP } from "@/lib/site";
 
 const FAQ_ITEMS = [
   {
-    q: "Por que comprar na Bike Center?",
-    a: "Somos uma loja consolidada com mais de 30 anos no mercado. Comprar conosco garante produtos autênticos, garantia oficial e atendimento especializado.",
+    q: "Como faço para comprar?",
+    a: "Peça orçamento no WhatsApp ou compre pelo Mercado Livre. Também pode retirar na loja em Fartura-SP, na Rua Mário Stella, 355.",
   },
   {
-    q: "Quanto tempo leva para receber meu pedido?",
-    a: "A entrega normalmente leva 7 a 10 dias úteis. Oferecemos frete grátis em compras acima de R$ 199.",
+    q: "Posso retirar na loja?",
+    a: `Sim. ${STORE.street}, ${STORE.city}/${STORE.state}. ${STORE.hoursShort}.`,
   },
   {
-    q: "Posso trocar ou devolver meu pedido?",
-    a: "Sim. Oferecemos política de devolução ou troca em até 30 dias, caso você não esteja satisfeito com seu pedido.",
+    q: "Como funciona o envio?",
+    a: "Enviamos pelo Mercado Livre para o Brasil. Compras acima de R$ 250 — frete grátis via Mercado Livre (Brasil). Ou retire na loja em Fartura.",
   },
   {
-    q: "Preciso pagar impostos ou taxas na entrega?",
-    a: "Não. Os valores já estão incluídos no preço final. Não há cobranças ocultas na entrega.",
+    q: "Posso trocar ou devolver?",
+    a: COPY.returns,
+  },
+  {
+    q: "Qual o WhatsApp da loja?",
+    a: `Claro ${WHATSAPP.claro.display} e Vivo ${WHATSAPP.vivo.display}. ${COPY.supportHours}`,
   },
 ];
 
@@ -25,31 +30,30 @@ export function FAQSection() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="max-w-container mx-auto px-4 sm:px-6 py-16 md:py-24">
-      <h2 className="font-heading font-bold text-2xl md:text-3xl text-brand-text uppercase tracking-[0.015em] mb-4">
+    <section id="faq" className="max-w-container mx-auto px-4 sm:px-6 py-12 md:py-24">
+      <h2 className="font-heading font-bold text-xl sm:text-2xl md:text-3xl text-brand-text uppercase tracking-[0.015em] mb-4">
         Perguntas Frequentes
       </h2>
-      <p className="text-gray-600 mb-10">
-        Respostas às perguntas mais comuns sobre pedidos, envio, devoluções e garantia.
+      <p className="text-gray-600 mb-4">
+        Compra local em Fartura, retirada na loja e envio pelo Mercado Livre.
       </p>
       <p className="text-sm text-gray-500 mb-8">
-        Atendimento ao Cliente Premium. Disponível de segunda a sexta-feira, das 9h00 às 17h00
-        (horário local). Normalmente respondemos a todas as consultas dentro de 24 horas.
+        {COPY.supportHours} WhatsApp Claro {WHATSAPP.claro.display} · Vivo {WHATSAPP.vivo.display}.
       </p>
 
       <div className="space-y-3">
         {FAQ_ITEMS.map((item, i) => (
           <div
-            key={i}
+            key={item.q}
             className="border border-gray-200 rounded-xl overflow-hidden bg-white"
           >
             <button
               type="button"
               onClick={() => setOpen(open === i ? null : i)}
-              className="w-full flex items-center justify-between p-4 md:p-5 text-left font-semibold text-brand-text hover:bg-gray-50 transition-colors"
+              className="w-full flex items-center justify-between gap-3 min-h-11 p-4 md:p-5 text-left font-semibold text-brand-text hover:bg-gray-50 transition-colors"
             >
-              {item.q}
-              <span className="text-brand-primary text-xl ml-2">
+              <span className="min-w-0">{item.q}</span>
+              <span className="text-brand-primary text-xl flex-shrink-0">
                 {open === i ? "−" : "+"}
               </span>
             </button>

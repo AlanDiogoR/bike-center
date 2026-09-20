@@ -18,8 +18,10 @@ jobs:
       - run: pnpm --filter @bikecenter/cart-store build
       - run: pnpm --filter api typecheck
       - run: pnpm --filter web typecheck
-      - run: pnpm --filter api test --run
-      - run: pnpm --filter web test --run
+      # `pnpm test --run` no pnpm 9 é flag do CLI (Unknown option: 'run').
+      # Os scripts já são `vitest run` — uma execução e sai.
+      - run: pnpm --filter api run test
+      - run: pnpm --filter web run test
   docker-build:
     needs: lint-and-test
     runs-on: ubuntu-latest

@@ -1,31 +1,26 @@
-"use client";
+import { MapPin, MessageCircle, RotateCcw, Clock } from "lucide-react";
+import { COPY, STORE } from "@/lib/site";
 
-import { Truck, Shield, RotateCcw, Headphones } from "lucide-react";
-
-/**
- * Trust Bar - Benefícios estilo Pagani Design para conversão de leads orgânicos
- * Frete Grátis, Site Oficial, Devolução 14 dias, Atendimento
- */
 const benefits = [
   {
-    icon: Truck,
-    title: "Frete Grátis para Todo o Mundo",
-    description: "Receba seu pedido em até 7 dias úteis, sem custo adicional em compras acima de R$ 250.",
+    icon: MapPin,
+    title: "Loja física em Fartura",
+    description: COPY.trustStore,
   },
   {
-    icon: Shield,
-    title: "Site Oficial",
-    description: "Bike Center — Loja Oficial. Garantia de qualidade e produtos autênticos.",
+    icon: MessageCircle,
+    title: "WhatsApp e Mercado Livre",
+    description: COPY.trustChannels,
   },
   {
     icon: RotateCcw,
-    title: "Política de Devolução Fácil em 14 Dias",
-    description: "Política de devolução ou troca em até 14 dias caso você não esteja satisfeito com seu pedido por qualquer motivo.",
+    title: "Troca em 14 dias",
+    description: COPY.returns,
   },
   {
-    icon: Headphones,
-    title: "Atendimento ao Cliente",
-    description: "Nossa equipe está sempre pronta para ajudar você — onde quer que esteja, garantindo uma experiência tranquila e satisfatória.",
+    icon: Clock,
+    title: "Horário da loja",
+    description: `${STORE.hoursShort}. Resposta rápida no horário da loja.`,
   },
 ];
 
@@ -36,23 +31,19 @@ export function TrustBar() {
       role="region"
       aria-label="Benefícios da loja"
     >
-      <div className="max-w-container mx-auto px-4 sm:px-6 py-6 md:py-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 items-stretch">
+      <div className="max-w-container mx-auto px-4 sm:px-6 py-5 md:py-7">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 items-stretch">
           {benefits.map(({ icon: Icon, title, description }) => (
-            <div
-              key={title}
-              className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-4 rounded-xl hover:bg-gray-50/80 transition-colors"
-            >
-              <span className="flex-shrink-0 w-12 h-12 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary" aria-hidden>
-                <Icon size={24} strokeWidth={1.5} />
+            <div key={title} className="flex flex-row items-start gap-3 p-2 sm:p-3">
+              <span
+                className="flex-shrink-0 w-11 h-11 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary"
+                aria-hidden
+              >
+                <Icon size={22} strokeWidth={1.5} />
               </span>
-              <div className="flex flex-col items-center sm:items-start gap-1 text-center sm:text-left">
-                <span className="font-semibold text-sm text-brand-text">
-                  {title}
-                </span>
-                <span className="text-xs text-brand-text/80 leading-relaxed">
-                  {description}
-                </span>
+              <div className="flex flex-col gap-1 min-w-0 text-left">
+                <span className="font-semibold text-sm text-brand-text leading-snug">{title}</span>
+                <span className="text-xs text-brand-text/80 leading-relaxed">{description}</span>
               </div>
             </div>
           ))}

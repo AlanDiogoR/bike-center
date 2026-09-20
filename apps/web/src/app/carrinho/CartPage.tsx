@@ -1,6 +1,7 @@
 "use client";
 
 import { useCartStore } from "@/store/cart.store";
+import { formatBRL } from "@/lib/site";
 import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, ShoppingBag } from "lucide-react";
@@ -38,7 +39,7 @@ export function CartPage() {
           {items.map((item) => (
             <div
               key={item.id}
-              className="flex gap-4 p-4 bg-brand-dialog rounded-[12px] border border-gray-100"
+              className="flex gap-3 sm:gap-4 p-3 sm:p-4 bg-brand-dialog rounded-[12px] border border-gray-100 min-w-0"
             >
               <div className="relative w-24 h-24 flex-shrink-0 bg-gray-100 rounded overflow-hidden">
                 {item.imageUrl && (item.imageUrl.startsWith("http") || item.imageUrl.startsWith("/")) ? (
@@ -47,7 +48,7 @@ export function CartPage() {
                     alt={item.name}
                     fill
                     sizes="96px"
-                    className="object-cover"
+                    className="object-contain object-center"
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-2xl">
@@ -58,7 +59,7 @@ export function CartPage() {
               <div className="flex-1 min-w-0">
                 <h3 className="font-semibold">{item.name}</h3>
                 <p className="text-brand-text font-bold">
-                  R$ {item.price.toFixed(2)}
+                  {formatBRL(item.price)}
                 </p>
                 <div className="flex items-center gap-2 mt-2">
                   <button
@@ -66,7 +67,8 @@ export function CartPage() {
                     onClick={() =>
                       updateQuantity(item.id, Math.max(0, item.quantity - 1))
                     }
-                    className="p-2 hover:bg-gray-100 rounded"
+                    className="min-h-11 min-w-11 inline-flex items-center justify-center hover:bg-gray-100 rounded"
+                    aria-label="Diminuir quantidade"
                   >
                     <Minus size={16} />
                   </button>
@@ -74,7 +76,8 @@ export function CartPage() {
                   <button
                     type="button"
                     onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                    className="p-2 hover:bg-gray-100 rounded"
+                    className="min-h-11 min-w-11 inline-flex items-center justify-center hover:bg-gray-100 rounded"
+                    aria-label="Aumentar quantidade"
                   >
                     <Plus size={16} />
                   </button>
@@ -83,7 +86,7 @@ export function CartPage() {
               <button
                 type="button"
                 onClick={() => removeItem(item.id)}
-                className="text-brand-onSale hover:underline text-sm self-start"
+                className="text-brand-onSale hover:underline text-sm self-start min-h-11"
               >
                 Remover
               </button>
@@ -95,11 +98,11 @@ export function CartPage() {
           <div className="p-6 bg-brand-dialog rounded-[12px] border border-gray-100 sticky top-24">
             <h3 className="font-semibold text-lg mb-4">Resumo</h3>
             <p className="text-xl font-bold text-brand-text mb-6">
-              Total: R$ {totalPrice().toFixed(2)}
+              Total: {formatBRL(totalPrice())}
             </p>
             <Link
               href="/checkout"
-              className="block w-full py-3 bg-brand-cta hover:bg-brand-ctaHover text-white font-semibold rounded-full transition-colors text-center"
+              className="block w-full min-h-11 py-3 bg-brand-cta hover:bg-brand-ctaHover text-white font-semibold rounded-full transition-colors text-center"
             >
               Finalizar compra
             </Link>

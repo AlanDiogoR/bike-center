@@ -4,7 +4,8 @@ import { ProductListPage } from "./ProductListPage";
 
 export const metadata: Metadata = {
   title: "Produtos",
-  description: "Catálogo completo de bicicletas, peças e acessórios - Bike Center",
+  description:
+    "Catálogo Bike Center Fartura: bikes Absolute, motos, capacetes, pneus e acessórios. Retire na loja ou envio pelo Mercado Livre.",
 };
 
 export default function ProdutosPage() {
