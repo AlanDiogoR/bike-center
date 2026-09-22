@@ -91,7 +91,7 @@ describe("catálogo PDP", () => {
       ...AMBIENT_CATALOG_IMAGES,
     ]);
 
-    for (const src of referenced) {
+    for (const src of Array.from(referenced)) {
       const file = path.join(publicDir, src.replace(/^\//, ""));
       expect(fs.existsSync(file), src).toBe(true);
       expect(fs.statSync(file).size, src).toBeGreaterThan(0);
@@ -113,7 +113,7 @@ describe("catálogo PDP", () => {
       expect(fs.existsSync(path.join(publicDir, src.replace(/^\//, ""))), src).toBe(true);
     }
 
-    const categories = new Set(SEED_CATEGORIES.map((category) => category.slug));
+    const categories = new Set<string>(SEED_CATEGORIES.map((category) => category.slug));
     for (const product of SEED_PRODUCTS) {
       expect(categories.has(product.categorySlug)).toBe(true);
       expect(product.slug).toMatch(/^[a-z0-9-]+$/);

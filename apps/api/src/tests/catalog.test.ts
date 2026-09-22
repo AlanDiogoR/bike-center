@@ -17,7 +17,7 @@ describe("seed catalog", () => {
   });
 
   it("cada produto cabe no schema da API e numa categoria do seed", () => {
-    const categories = new Set(SEED_CATEGORIES.map((category) => category.slug));
+    const categories = new Set<string>(SEED_CATEGORIES.map((category) => category.slug));
     expect(categories.size).toBe(SEED_CATEGORIES.length);
     for (const product of SEED_PRODUCTS) {
       expect(categories.has(product.categorySlug)).toBe(true);
