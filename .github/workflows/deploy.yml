@@ -11,7 +11,8 @@ jobs:
       - name: Deploy to Railway
         run: |
           curl -fsSL https://railway.app/install.sh | sh
-          railway up --service api --detach
+          # O install.sh coloca o binário em ~/.railway/bin e não atualiza o PATH desta shell.
+          "$HOME/.railway/bin/railway" up --service api --detach
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
   deploy-web:
