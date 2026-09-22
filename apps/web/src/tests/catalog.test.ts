@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { RETIRED_PRODUCT_SLUGS, SEED_CATEGORIES, SEED_PRODUCTS } from "@bikecenter/shared";
 import { CATALOG_PRODUCT_SLUGS } from "@/lib/catalog";
-import { galleryImages, pickListingImage } from "@/lib/product-images";
+import { galleryImages, isCutoutImage, pickListingImage } from "@/lib/product-images";
 
 const publicDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../public");
 
@@ -135,6 +135,12 @@ describe("product-images", () => {
         "/images/catalog/motos/honda-cg-fan-vermelha-2010/04-recorte.webp",
       ])
     ).toMatch(/recorte/);
+  });
+
+  it("separa recorte de foto de showroom", () => {
+    expect(isCutoutImage("/images/catalog/motos/honda-cg-fan-vermelha-2010/04-recorte.webp")).toBe(true);
+    expect(isCutoutImage("/images/catalog/motos/honda-bros-azul/02-capa-feed.webp")).toBe(false);
+    expect(isCutoutImage("/images/catalog/produtos/mtb-azul/01-outdoor.webp")).toBe(false);
   });
 
   it("PDP coloca recorte na frente e capa-feed no fim", () => {

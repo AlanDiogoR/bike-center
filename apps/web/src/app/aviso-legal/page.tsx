@@ -1,9 +1,14 @@
+import type { Metadata } from "next";
 import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
+import { siteUrl } from "@/lib/site";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Aviso Legal",
   description:
-    "Aviso Legal da Bike Center - Termos e condições de uso do site. Conheça seus direitos e obrigações ao utilizar nossos serviços.",
+    "Aviso legal da Bike Center Fartura: condições de uso do site da loja de motos, bikes e oficina em Fartura-SP.",
+  alternates: {
+    canonical: siteUrl("aviso-legal"),
+  },
 };
 
 export default function AvisoLegalPage() {

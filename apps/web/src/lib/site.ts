@@ -76,6 +76,23 @@ export function siteUrl(path = ""): string {
   return joinUrl(getSiteUrl(), path);
 }
 
+/** Rotas públicas do sitemap. A home é string vazia para não virar `//`. */
+export const PUBLIC_PATHS = [
+  "",
+  "produtos",
+  "contato",
+  "aviso-legal",
+  "politica-privacidade",
+  "termos-uso",
+] as const;
+
+export function publicSitemapUrls(origin: string, productSlugs: readonly string[]): string[] {
+  return [
+    ...PUBLIC_PATHS.map((path) => joinUrl(origin, path)),
+    ...productSlugs.map((slug) => joinUrl(origin, `produtos/${slug}`)),
+  ];
+}
+
 export function apiUrl(path = ""): string {
   return joinUrl(getApiUrl(), path);
 }

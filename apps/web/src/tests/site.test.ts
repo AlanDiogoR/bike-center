@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { COPY, formatBRL, joinUrl, stripTrailingSlash, WHATSAPP } from "@/lib/site";
+import { COPY, formatBRL, joinUrl, publicSitemapUrls, stripTrailingSlash, WHATSAPP } from "@/lib/site";
 import { CATALOG_PRODUCT_SLUGS } from "@/lib/catalog";
 
 describe("joinUrl / stripTrailingSlash", () => {
@@ -28,6 +28,23 @@ describe("joinUrl / stripTrailingSlash", () => {
     expect(joinUrl("https://bike-center-web.vercel.app/", "")).toBe(
       "https://bike-center-web.vercel.app"
     );
+  });
+});
+
+describe("sitemap público", () => {
+  const origin = "https://bike-center-web.vercel.app/";
+
+  it("inclui a home, a listagem e cada slug do catálogo sem barra dupla", () => {
+    const urls = publicSitemapUrls(origin, CATALOG_PRODUCT_SLUGS);
+    expect(urls[0]).toBe("https://bike-center-web.vercel.app");
+    expect(urls).toContain("https://bike-center-web.vercel.app/produtos");
+    expect(urls).toContain("https://bike-center-web.vercel.app/contato");
+    for (const slug of CATALOG_PRODUCT_SLUGS) {
+      expect(urls).toContain(`https://bike-center-web.vercel.app/produtos/${slug}`);
+    }
+    for (const url of urls) {
+      expect(url.split("://")[1]).not.toContain("//");
+    }
   });
 });
 

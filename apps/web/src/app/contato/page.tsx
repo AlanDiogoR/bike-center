@@ -1,8 +1,12 @@
-import { STORE, WHATSAPP, whatsappUrl } from "@/lib/site";
+import type { Metadata } from "next";
+import { STORE, WHATSAPP, siteUrl, whatsappUrl } from "@/lib/site";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Fale Conosco",
-  description: `Bike Center Fartura — ${STORE.street}. WhatsApp Claro ${WHATSAPP.claro.display} e Vivo ${WHATSAPP.vivo.display}.`,
+  description: `Bike Center Fartura — ${STORE.street}, ${STORE.city}/${STORE.state}. WhatsApp Claro ${WHATSAPP.claro.display} e Vivo ${WHATSAPP.vivo.display}. ${STORE.hoursShort}.`,
+  alternates: {
+    canonical: siteUrl("contato"),
+  },
 };
 
 export default function ContatoPage() {
@@ -24,13 +28,13 @@ export default function ContatoPage() {
         </p>
         <p>
           <strong>WhatsApp Claro:</strong>{" "}
-          <a href={whatsappUrl("claro")} className="text-brand-primary hover:underline">
+          <a href={whatsappUrl("claro")} className="inline-flex min-h-11 items-center text-brand-primary hover:underline">
             {WHATSAPP.claro.display}
           </a>
         </p>
         <p>
           <strong>WhatsApp Vivo:</strong>{" "}
-          <a href={whatsappUrl("vivo")} className="text-brand-primary hover:underline">
+          <a href={whatsappUrl("vivo")} className="inline-flex min-h-11 items-center text-brand-primary hover:underline">
             {WHATSAPP.vivo.display}
           </a>
         </p>
@@ -69,7 +73,7 @@ export default function ContatoPage() {
             href={STORE.mapsDirUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-primary hover:underline"
+            className="inline-flex min-h-11 items-center text-brand-primary hover:underline"
           >
             Como chegar
           </a>

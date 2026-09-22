@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { HeroSection } from "@/components/home/HeroSection";
+import { siteUrl } from "@/lib/site";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: siteUrl(),
+  },
+};
 import { TrustBar } from "@/components/home/TrustBar";
 import { BannersSection } from "@/components/home/BannersSection";
 import { StoreVisitSection } from "@/components/home/StoreVisitSection";
