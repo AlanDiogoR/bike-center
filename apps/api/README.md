@@ -22,12 +22,15 @@ API REST do ecossistema Bike Center. **Express**, **Prisma**, **MongoDB**, **Zod
 
 ## Instalação
 
+Na raiz do monorepo:
+
 ```bash
-cd apps/api
 pnpm install
 ```
 
 ## Configuração
+
+No diretório `apps/api`:
 
 ```bash
 cp .env.example .env
@@ -48,9 +51,9 @@ pnpm db:push
 pnpm db:seed
 ```
 
-O seed cria: **3 categorias** (Bicicletas, Peças e Componentes, Óleos e Manutenção), **3 produtos** e usuário admin.
+O seed lê `SEED_CATEGORIES` e `SEED_PRODUCTS` de `packages/shared/src/catalog.ts` (reexportado em `prisma/catalog.ts`). Ele faz upsert das categorias e dos produtos ativos, desativa os slugs em `RETIRED_PRODUCT_SLUGS` e grava o endereço da loja em Fartura.
 
-Após o seed: **admin@bikecenter.com.br** / **Senha123!**
+O admin usa `SEED_ADMIN_EMAIL` (padrão `admin@bikecenter.com.br`) e `SEED_ADMIN_PASSWORD`. Não há senha padrão no código: sem essa variável o seed encerra com erro.
 
 ### Erro "Authentication failed" / "SCRAM failure: bad auth"
 

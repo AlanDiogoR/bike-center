@@ -1,2 +1,2 @@
-# Coloque d__bikecenter_logo.jpg ou logo.jpeg aqui para usar no projeto.
-# O logo da Bike Center será referenciado em apps/web/public/ e apps/mobile/assets/
+# Logo-fonte da marca: assets/logo.jpeg
+# A vitrine usa apps/web/public/logo.svg (header, favicon e JSON-LD).

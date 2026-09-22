@@ -23,20 +23,24 @@ Frontend e-commerce da Bike Center. **Next.js 14** (App Router), **Tailwind**, *
 
 ## Instalação
 
+Na raiz do monorepo:
+
 ```bash
-cd apps/web
 pnpm install
 ```
 
 ## Configuração
 
+No diretório `apps/web`:
+
 ```bash
 cp .env.example .env.local
 ```
 
-Variáveis:
+Variáveis (veja `.env.example`):
 - `NEXT_PUBLIC_API_URL` — URL da API (ex: http://localhost:3333)
-- `NEXT_PUBLIC_SITE_URL` — URL do site (para sitemap/SEO)
+- `NEXT_PUBLIC_API_HOSTNAME` — hostname da API para `next/image`
+- `NEXT_PUBLIC_SITE_URL` — URL do site (para sitemap/SEO), sem barra no final
 
 ## Rodar
 

@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import { prisma } from "../lib/prisma.js";
 import { expandSearchTerms } from "../lib/search-utils.js";
+
 export async function listProducts(req: Request, res: Response): Promise<void> {
   const query = req.validatedQuery ?? req.query;
   const page = Number(query.page) || 1;
