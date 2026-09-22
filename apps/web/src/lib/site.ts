@@ -25,7 +25,7 @@ export const STORE = {
   hoursShort: "Seg–Sex 8h–18h · Sáb 8h–13h · Dom fechado",
   hoursLines: ["Seg a Sex: 8h às 18h", "Sábado: 8h às 13h", "Domingo: Fechado"],
   defaultOgImage: "/images/og-default.jpg",
-  heroImage: "/images/hero/showroom-absolute.jpg",
+  heroImage: "/images/hero/showroom-absolute.webp",
 } as const;
 
 export const WHATSAPP = {
