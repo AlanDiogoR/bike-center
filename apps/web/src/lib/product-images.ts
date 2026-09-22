@@ -10,7 +10,7 @@ export function pickListingImage(images: string[] | undefined | null): string {
 }
 
 /**
- * Ordem da galeria PDP: recorte/hero primeiro, depois fotos de loja,
+ * Ordem da galeria PDP: recorte primeiro, demais fotos na ordem do seed,
  * capa-feed por último (card social, não studio).
  */
 export function galleryImages(images: string[] | undefined | null): string[] {
