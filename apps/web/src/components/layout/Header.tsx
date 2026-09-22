@@ -42,7 +42,6 @@ export function Header() {
                   alt="Bike Center Fartura"
                   fill
                   sizes="48px"
-                  priority
                   className="object-contain invert"
                 />
               </div>

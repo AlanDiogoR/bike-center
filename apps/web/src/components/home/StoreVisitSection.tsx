@@ -14,6 +14,7 @@ export function StoreVisitSection() {
                 alt="Equipe da Bike Center Fartura na entrada da loja"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
+                loading="lazy"
                 className="object-cover object-[center_20%]"
               />
             </div>
@@ -23,6 +24,7 @@ export function StoreVisitSection() {
                 alt="Oficina da Bike Center — tambores de óleo e bancada de ferramentas"
                 fill
                 sizes="(max-width: 768px) 50vw, 25vw"
+                loading="lazy"
                 className="object-cover"
               />
             </div>

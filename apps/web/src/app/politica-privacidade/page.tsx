@@ -1,8 +1,14 @@
+import type { Metadata } from "next";
 import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
+import { siteUrl } from "@/lib/site";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Política de Privacidade",
-  description: "Política de Privacidade da Bike Center - Como tratamos seus dados pessoais.",
+  description:
+    "Política de privacidade da Bike Center Fartura: como a loja trata dados de contato, pedidos e navegação no site.",
+  alternates: {
+    canonical: siteUrl("politica-privacidade"),
+  },
 };
 
 export default function PoliticaPrivacidadePage() {

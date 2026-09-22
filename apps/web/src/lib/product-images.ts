@@ -1,3 +1,8 @@
+/** Recorte de estúdio (fundo limpo). Showroom e capa-feed ficam de fora. */
+export function isCutoutImage(src: string): boolean {
+  return /recorte/i.test(src);
+}
+
 /** Escolhe a foto de card: recorte/hero > capa-feed > primeira. */
 export function pickListingImage(images: string[] | undefined | null): string {
   const list = (images ?? []).filter((src) => typeof src === "string" && src.length > 0);

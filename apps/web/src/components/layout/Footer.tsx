@@ -21,23 +21,24 @@ export function Footer() {
               <br />
               {STORE.neighborhood} · {STORE.city}/{STORE.state} · CEP {STORE.postalCode}
               <br />
-              <a
-                href={STORE.mapsDirUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-brand-primary hover:underline"
-              >
-                Como chegar (Google Maps)
-              </a>
-              {" · "}
-              <a
-                href={STORE.hubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-brand-primary hover:underline"
-              >
-                Hub de contato
-              </a>
+              <span className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+                <a
+                  href={STORE.mapsDirUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 items-center text-brand-primary hover:underline"
+                >
+                  Como chegar (Google Maps)
+                </a>
+                <a
+                  href={STORE.hubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 items-center text-brand-primary hover:underline"
+                >
+                  Hub de contato
+                </a>
+              </span>
             </address>
             <SocialLinks />
           </div>

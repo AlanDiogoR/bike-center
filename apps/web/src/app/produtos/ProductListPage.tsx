@@ -32,7 +32,7 @@ export function ProductListPage() {
     <div className="min-h-screen bg-gray-50">
       <section className="bg-gray-900 text-white py-8 sm:py-10">
         <div className="max-w-container mx-auto px-4 sm:px-6">
-          <h1 className="font-heading font-bold text-xl sm:text-2xl md:text-3xl uppercase tracking-wide mb-2">
+          <h1 className="font-heading font-bold text-xl sm:text-2xl md:text-3xl uppercase tracking-wide mb-2 break-words">
             {search
               ? `Busca: ${search}`
               : category

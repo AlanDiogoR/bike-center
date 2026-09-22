@@ -1,8 +1,14 @@
+import type { Metadata } from "next";
 import { LegalPageLayout } from "@/components/layout/LegalPageLayout";
+import { siteUrl } from "@/lib/site";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Termos de Uso",
-  description: "Termos de Uso do site Bike Center.",
+  description:
+    "Termos de uso do site da Bike Center Fartura, loja de motos, bikes, peças e oficina na Rua Mário Stella, 355.",
+  alternates: {
+    canonical: siteUrl("termos-uso"),
+  },
 };
 
 export default function TermosUsoPage() {

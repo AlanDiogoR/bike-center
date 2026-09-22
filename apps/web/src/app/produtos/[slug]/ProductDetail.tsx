@@ -16,18 +16,13 @@ import {
 import { toast } from "sonner";
 import * as Accordion from "@radix-ui/react-accordion";
 import type { Product } from "@/lib/api";
-import { galleryImages } from "@/lib/product-images";
+import { breadcrumbJsonLd, productJsonLd } from "@/lib/jsonld";
+import { galleryImages, isCutoutImage } from "@/lib/product-images";
 import { useCartStore } from "@/store/cart.store";
-import { COPY, STORE, formatBRL, getSiteUrl, siteUrl, whatsappUrl } from "@/lib/site";
+import { COPY, STORE, WHATSAPP, formatBRL, whatsappUrl } from "@/lib/site";
 
 interface ProductDetailProps {
   product: Product;
-}
-
-function resolveImage(src: string, baseUrl: string): string {
-  if (src.startsWith("http")) return src;
-  if (src.startsWith("/")) return `${baseUrl}${src}`;
-  return src;
 }
 
 export function ProductDetail({ product }: ProductDetailProps) {
@@ -35,55 +30,14 @@ export function ProductDetail({ product }: ProductDetailProps) {
   const images = galleryImages(product.images);
   const [activeIndex, setActiveIndex] = useState(0);
   const imageUrl = images[activeIndex] ?? images[0];
-  const baseUrl = getSiteUrl();
-  const productUrl = siteUrl(`produtos/${product.slug}`);
+  const interestText = `Olá! Tenho interesse em ${product.name} (${product.slug}).`;
   const hasComparePrice = product.compareAtPrice && product.compareAtPrice > product.price;
   const discountPercent = hasComparePrice
     ? Math.round(((product.compareAtPrice! - product.price) / product.compareAtPrice!) * 100)
     : 0;
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: product.name,
-    description: product.shortDescription ?? product.description,
-    image: images.map((img) => resolveImage(img, baseUrl)),
-    sku: product.slug,
-    brand: {
-      "@type": "Brand",
-      name: STORE.name,
-    },
-    url: productUrl,
-    offers: {
-      "@type": "Offer",
-      url: productUrl,
-      price: product.price,
-      priceCurrency: "BRL",
-      availability: product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-      seller: {
-        "@type": "LocalBusiness",
-        name: STORE.name,
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: STORE.street,
-          addressLocality: STORE.city,
-          addressRegion: STORE.state,
-          postalCode: STORE.postalCode,
-          addressCountry: STORE.country,
-        },
-      },
-    },
-  };
-
-  const breadcrumbLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Início", item: baseUrl },
-      { "@type": "ListItem", position: 2, name: "Produtos", item: siteUrl("produtos") },
-      { "@type": "ListItem", position: 3, name: product.name, item: productUrl },
-    ],
-  };
+  const jsonLd = productJsonLd(product);
+  const breadcrumbLd = breadcrumbJsonLd(product.name, product.slug);
 
   return (
     <>
@@ -97,12 +51,12 @@ export function ProductDetail({ product }: ProductDetailProps) {
       />
 
       <div className="bg-gray-50 border-b border-gray-100 overflow-hidden">
-        <nav className="max-w-container mx-auto px-4 sm:px-6 py-3 text-sm flex items-center gap-1 min-w-0">
-          <Link href="/" className="text-gray-500 hover:text-brand-primary flex-shrink-0">
+        <nav className="max-w-container mx-auto px-4 sm:px-6 py-1 text-sm flex items-center gap-1 min-w-0">
+          <Link href="/" className="text-gray-500 hover:text-brand-primary flex-shrink-0 inline-flex min-h-11 items-center">
             Início
           </Link>
           <span className="mx-1 text-gray-400 flex-shrink-0">/</span>
-          <Link href="/produtos" className="text-gray-500 hover:text-brand-primary flex-shrink-0">
+          <Link href="/produtos" className="text-gray-500 hover:text-brand-primary flex-shrink-0 inline-flex min-h-11 items-center">
             Produtos
           </Link>
           <span className="mx-1 text-gray-400 flex-shrink-0">/</span>
@@ -112,7 +66,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
         </nav>
       </div>
 
-      <div className="max-w-container mx-auto px-4 sm:px-6 py-6 md:py-12 overflow-hidden">
+      <div className="max-w-container mx-auto min-w-0 px-4 sm:px-6 py-6 md:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-14">
           <div className="min-w-0">
             <div className="relative aspect-square bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
@@ -123,7 +77,9 @@ export function ProductDetail({ product }: ProductDetailProps) {
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   priority
-                  className="object-contain object-center p-3 sm:p-6"
+                  className={`object-contain object-center ${
+                    isCutoutImage(imageUrl) ? "p-3 sm:p-6" : "p-1"
+                  }`}
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-8xl bg-gray-50">
@@ -144,24 +100,26 @@ export function ProductDetail({ product }: ProductDetailProps) {
               </div>
             </div>
             {images.length > 1 && (
-              <div className="flex gap-2 mt-3 overflow-x-auto pb-2 -mx-1 px-1 snap-x">
+              <div className="mt-3 flex w-full max-w-full gap-2 overflow-x-auto overscroll-x-contain pb-2 snap-x">
                 {images.slice(0, 12).map((img, i) => (
                   <button
                     type="button"
                     key={`${img}-${i}`}
                     onClick={() => setActiveIndex(i)}
-                    aria-label={`Foto ${i + 1}`}
+                    aria-label={`Foto ${i + 1} de ${product.name}`}
                     aria-pressed={i === activeIndex}
-                    className={`relative w-16 h-16 sm:w-20 sm:h-20 min-w-[64px] min-h-[44px] flex-shrink-0 rounded-lg overflow-hidden border-2 snap-start ${
+                    className={`relative h-16 w-16 sm:h-20 sm:w-20 min-h-11 min-w-11 flex-shrink-0 snap-start touch-manipulation rounded-lg overflow-hidden border-2 bg-white ${
                       i === activeIndex ? "border-brand-primary" : "border-gray-200"
                     }`}
                   >
                     <Image
                       src={img}
-                      alt={`${product.name} ${i + 1}`}
+                      alt=""
                       fill
                       sizes="80px"
-                      className="object-contain object-center p-0.5"
+                      className={`pointer-events-none object-contain object-center ${
+                        isCutoutImage(img) ? "p-0.5" : ""
+                      }`}
                     />
                   </button>
                 ))}
@@ -203,12 +161,23 @@ export function ProductDetail({ product }: ProductDetailProps) {
 
             <div className="flex flex-col gap-3">
               <a
-                href={whatsappUrl("claro", `Olá! Tenho interesse em ${product.name} (${product.slug}).`)}
+                href={whatsappUrl("claro", interestText)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center min-h-12 py-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-xl text-center text-base sm:text-lg shadow-lg"
+                className="w-full flex flex-col items-center justify-center min-h-12 px-4 py-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-xl text-center text-base sm:text-lg shadow-lg leading-tight"
               >
-                {COPY.ctaWhatsApp}
+                <span>{COPY.ctaWhatsApp}</span>
+                <span className="mt-0.5 text-sm font-semibold text-white/90">
+                  Claro {WHATSAPP.claro.display}
+                </span>
+              </a>
+              <a
+                href={whatsappUrl("vivo", interestText)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center min-h-11 px-4 py-2.5 border-2 border-[#25D366] text-[#128C7E] hover:bg-[#25D366]/10 font-semibold rounded-xl text-center text-sm sm:text-base"
+              >
+                WhatsApp Vivo {WHATSAPP.vivo.display}
               </a>
               <button
                 type="button"

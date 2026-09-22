@@ -24,7 +24,7 @@ export function ProductPagination({ page, total, limit, category, search }: Prod
       {page > 1 && (
         <Link
           href={`/produtos?${buildParams(page - 1)}`}
-          className="px-6 py-3 bg-white border-2 border-gray-200 text-gray-700 font-medium rounded-full hover:border-brand-primary hover:text-brand-primary transition-colors"
+          className="inline-flex min-h-11 items-center justify-center px-6 py-3 bg-white border-2 border-gray-200 text-gray-700 font-medium rounded-full hover:border-brand-primary hover:text-brand-primary transition-colors"
         >
           ← Anterior
         </Link>
@@ -35,7 +35,7 @@ export function ProductPagination({ page, total, limit, category, search }: Prod
       {page < totalPages && (
         <Link
           href={`/produtos?${buildParams(page + 1)}`}
-          className="px-6 py-3 bg-brand-cta text-white font-medium rounded-full hover:bg-brand-ctaHover transition-colors"
+          className="inline-flex min-h-11 items-center justify-center px-6 py-3 bg-brand-cta text-white font-medium rounded-full hover:bg-brand-ctaHover transition-colors"
         >
           Próxima →
         </Link>
