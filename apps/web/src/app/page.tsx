@@ -16,7 +16,7 @@ import { InstagramSection } from "@/components/home/InstagramSection";
 import { websiteJsonLd } from "@/lib/jsonld";
 
 const ProductGrid = dynamic(() => import("@/components/home/ProductGrid").then((m) => ({ default: m.ProductGrid })), {
-  loading: () => <div className="h-64 bg-gray-100 rounded-xl" aria-hidden />,
+  loading: () => <div className="h-64 animate-pulse bg-gray-100 rounded-xl" />,
 });
 
 export default function HomePage() {

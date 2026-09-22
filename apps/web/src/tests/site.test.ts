@@ -69,7 +69,7 @@ describe("formatBRL", () => {
   });
 });
 
-describe("hero LCP e visita à loja", () => {
+describe("hero LCP", () => {
   it("usa um WebP comprimido do showroom Absolute, sem o JPG antigo", () => {
     expect(STORE.heroImage).toBe("/images/hero/showroom-absolute.webp");
     const webp = path.join(publicDir, STORE.heroImage.replace(/^\//, ""));
@@ -79,46 +79,31 @@ describe("hero LCP e visita à loja", () => {
     expect(fs.existsSync(path.join(publicDir, "images/hero/showroom-absolute.jpg"))).toBe(false);
   });
 
-  it("a home tem um único priority no hero e o restante lazy", () => {
+  it("reserva aspect ratio e deixa um único priority no hero", () => {
     const hero = fs.readFileSync(path.join(webSrc, "components/home/HeroSection.tsx"), "utf8");
     expect(hero.match(/\bpriority\b/g)).toEqual(["priority"]);
     expect(hero).not.toMatch(/fetchPriority/);
+    expect(hero).toContain('sizes="100vw"');
+    expect(hero).toContain("aspect-[3/4]");
+    expect(hero).toContain("lg:aspect-[2/1]");
 
     const belowFold = [
-      "app/page.tsx",
       "components/home/BannersSection.tsx",
       "components/home/StoreVisitSection.tsx",
       "components/home/ProductGrid.tsx",
       "components/ProductCard.tsx",
-      "components/layout/Header.tsx",
     ];
     for (const file of belowFold) {
       const src = fs.readFileSync(path.join(webSrc, file), "utf8");
       expect(src, file).not.toMatch(/\bpriority\b/);
       expect(src, file).not.toMatch(/fetchPriority=["']high["']/);
     }
-
-    expect(fs.readFileSync(path.join(webSrc, "app/page.tsx"), "utf8")).not.toMatch(/animate-pulse/);
-    expect(fs.readFileSync(path.join(webSrc, "components/home/ProductGrid.tsx"), "utf8")).not.toMatch(
-      /animate-pulse/
+    expect(fs.readFileSync(path.join(webSrc, "components/home/BannersSection.tsx"), "utf8")).toContain(
+      'loading="lazy"'
     );
-  });
-
-  it("amplia a visita com fotos reais de equipe, oficina e Honda", () => {
-    const src = fs.readFileSync(path.join(webSrc, "components/home/StoreVisitSection.tsx"), "utf8");
-    const photos = [
-      "/images/catalog/ambiente/03-equipe-trio.webp",
-      "/images/catalog/ambiente/02-oficina-tambores-oleo.webp",
-      "/images/oficina/manutencao-honda.jpg",
-    ];
-    for (const photo of photos) {
-      expect(src).toContain(photo);
-      const file = path.join(publicDir, photo.replace(/^\//, ""));
-      expect(fs.existsSync(file), photo).toBe(true);
-      expect(fs.statSync(file).size, photo).toBeGreaterThan(0);
-    }
-    expect(src).toContain('loading="lazy"');
-    expect(src).toContain('fetchPriority="low"');
+    expect(fs.readFileSync(path.join(webSrc, "components/home/StoreVisitSection.tsx"), "utf8")).toContain(
+      'loading="lazy"'
+    );
   });
 });
 

@@ -17,7 +17,7 @@ export function ProductGrid() {
         {[...Array(4)].map((_, i) => (
           <div
             key={i}
-            className="h-80 bg-gray-200 rounded-[12px]"
+            className="h-80 bg-gray-200 animate-pulse rounded-[12px]"
             aria-hidden
           />
         ))}
