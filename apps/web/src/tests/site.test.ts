@@ -1,6 +1,12 @@
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { COPY, formatBRL, joinUrl, publicSitemapUrls, stripTrailingSlash, WHATSAPP } from "@/lib/site";
+import { COPY, formatBRL, joinUrl, publicSitemapUrls, STORE, stripTrailingSlash, WHATSAPP } from "@/lib/site";
 import { CATALOG_PRODUCT_SLUGS } from "@/lib/catalog";
+
+const publicDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../public");
+const webSrc = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 describe("joinUrl / stripTrailingSlash", () => {
   it("remove barra final da origem", () => {
@@ -60,6 +66,59 @@ describe("formatBRL", () => {
     const compact = (value: number) => formatBRL(value).replace(/\s/g, "");
     expect(compact(2590)).toBe("R$2.590,00");
     expect(compact(9.9)).toBe("R$9,90");
+  });
+});
+
+describe("hero LCP e visita à loja", () => {
+  it("usa um WebP comprimido do showroom Absolute, sem o JPG antigo", () => {
+    expect(STORE.heroImage).toBe("/images/hero/showroom-absolute.webp");
+    const webp = path.join(publicDir, STORE.heroImage.replace(/^\//, ""));
+    expect(fs.existsSync(webp)).toBe(true);
+    expect(fs.statSync(webp).size).toBeGreaterThan(0);
+    expect(fs.statSync(webp).size).toBeLessThan(150_000);
+    expect(fs.existsSync(path.join(publicDir, "images/hero/showroom-absolute.jpg"))).toBe(false);
+  });
+
+  it("a home tem um único priority no hero e o restante lazy", () => {
+    const hero = fs.readFileSync(path.join(webSrc, "components/home/HeroSection.tsx"), "utf8");
+    expect(hero.match(/\bpriority\b/g)).toEqual(["priority"]);
+    expect(hero).not.toMatch(/fetchPriority/);
+
+    const belowFold = [
+      "app/page.tsx",
+      "components/home/BannersSection.tsx",
+      "components/home/StoreVisitSection.tsx",
+      "components/home/ProductGrid.tsx",
+      "components/ProductCard.tsx",
+      "components/layout/Header.tsx",
+    ];
+    for (const file of belowFold) {
+      const src = fs.readFileSync(path.join(webSrc, file), "utf8");
+      expect(src, file).not.toMatch(/\bpriority\b/);
+      expect(src, file).not.toMatch(/fetchPriority=["']high["']/);
+    }
+
+    expect(fs.readFileSync(path.join(webSrc, "app/page.tsx"), "utf8")).not.toMatch(/animate-pulse/);
+    expect(fs.readFileSync(path.join(webSrc, "components/home/ProductGrid.tsx"), "utf8")).not.toMatch(
+      /animate-pulse/
+    );
+  });
+
+  it("amplia a visita com fotos reais de equipe, oficina e Honda", () => {
+    const src = fs.readFileSync(path.join(webSrc, "components/home/StoreVisitSection.tsx"), "utf8");
+    const photos = [
+      "/images/catalog/ambiente/03-equipe-trio.webp",
+      "/images/catalog/ambiente/02-oficina-tambores-oleo.webp",
+      "/images/oficina/manutencao-honda.jpg",
+    ];
+    for (const photo of photos) {
+      expect(src).toContain(photo);
+      const file = path.join(publicDir, photo.replace(/^\//, ""));
+      expect(fs.existsSync(file), photo).toBe(true);
+      expect(fs.statSync(file).size, photo).toBeGreaterThan(0);
+    }
+    expect(src).toContain('loading="lazy"');
+    expect(src).toContain('fetchPriority="low"');
   });
 });
 

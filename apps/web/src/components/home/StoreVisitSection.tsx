@@ -2,34 +2,54 @@ import Image from "next/image";
 import { MapPin, Clock } from "lucide-react";
 import { STORE, WHATSAPP, whatsappUrl } from "@/lib/site";
 
+export const STORE_VISIT_PHOTOS = [
+  {
+    src: "/images/catalog/ambiente/03-equipe-trio.webp",
+    alt: "Equipe da Bike Center Fartura na entrada da loja",
+    frame: "col-span-2 aspect-[16/10] sm:aspect-[16/9]",
+    sizes: "(max-width: 768px) 100vw, 50vw",
+    position: "object-cover object-[center_20%]",
+  },
+  {
+    src: "/images/catalog/ambiente/02-oficina-tambores-oleo.webp",
+    alt: "Oficina da Bike Center — tambores de óleo e bancada de ferramentas",
+    frame: "aspect-[4/3]",
+    sizes: "(max-width: 768px) 50vw, 25vw",
+    position: "object-cover",
+  },
+  {
+    src: "/images/oficina/manutencao-honda.jpg",
+    alt: "Manutenção de moto Honda na oficina da Bike Center Fartura",
+    frame: "aspect-[4/3]",
+    sizes: "(max-width: 768px) 50vw, 25vw",
+    position: "object-cover object-center",
+  },
+] as const;
+
 export function StoreVisitSection() {
   return (
     <section className="bg-gray-50 border-y border-gray-100">
       <div className="max-w-container mx-auto px-4 sm:px-6 py-10 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center">
-          <div className="grid grid-cols-2 gap-3 min-w-0">
-            <div className="relative col-span-2 aspect-[4/3] rounded-2xl overflow-hidden bg-gray-200">
-              <Image
-                src="/images/catalog/ambiente/03-equipe-trio.webp"
-                alt="Equipe da Bike Center Fartura na entrada da loja"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                loading="lazy"
-                className="object-cover object-[center_20%]"
-              />
-            </div>
-            <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-gray-200">
-              <Image
-                src="/images/catalog/ambiente/02-oficina-tambores-oleo.webp"
-                alt="Oficina da Bike Center — tambores de óleo e bancada de ferramentas"
-                fill
-                sizes="(max-width: 768px) 50vw, 25vw"
-                loading="lazy"
-                className="object-cover"
-              />
-            </div>
-            <p className="text-xs text-gray-500 self-center leading-snug">
-              Oficina no mesmo endereço — foto real da bancada.
+          <div className="grid grid-cols-2 gap-2 sm:gap-3 min-w-0">
+            {STORE_VISIT_PHOTOS.map((photo) => (
+              <div
+                key={photo.src}
+                className={`relative rounded-2xl overflow-hidden bg-gray-200 ${photo.frame}`}
+              >
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  sizes={photo.sizes}
+                  loading="lazy"
+                  fetchPriority="low"
+                  className={photo.position}
+                />
+              </div>
+            ))}
+            <p className="col-span-2 text-xs text-gray-500 leading-snug">
+              Oficina no mesmo endereço — fotos reais da bancada e da manutenção.
             </p>
           </div>
           <div className="min-w-0">

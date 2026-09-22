@@ -5,13 +5,14 @@ import { COPY, STORE, whatsappUrl } from "@/lib/site";
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-black">
-      <div className="relative min-h-[420px] h-[min(72svh,620px)] md:h-[min(72svh,640px)]">
+      <div className="relative w-full min-w-full aspect-[3/4] max-h-[640px] sm:aspect-[16/10] lg:aspect-[2/1] bg-black">
         <Image
           src={STORE.heroImage}
           alt="Fila de mountain bikes Absolute no showroom da Bike Center Fartura"
           fill
           priority
           sizes="100vw"
+          quality={70}
           className="object-cover object-[72%_42%] md:object-[78%_40%]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/15 md:bg-gradient-to-r md:from-black/80 md:via-black/45 md:to-black/10" />

@@ -40,6 +40,7 @@ function TileGrid() {
             fill
             sizes="(max-width: 640px) 100vw, 33vw"
             loading="lazy"
+            fetchPriority="low"
             className="object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
