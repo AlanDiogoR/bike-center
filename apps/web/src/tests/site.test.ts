@@ -88,6 +88,7 @@ describe("hero LCP", () => {
     expect(hero).toContain("lg:aspect-[2/1]");
 
     const belowFold = [
+      "components/home/SocialProofSection.tsx",
       "components/home/BannersSection.tsx",
       "components/home/StoreVisitSection.tsx",
       "components/home/ProductGrid.tsx",
@@ -104,6 +105,34 @@ describe("hero LCP", () => {
     expect(fs.readFileSync(path.join(webSrc, "components/home/StoreVisitSection.tsx"), "utf8")).toContain(
       'loading="lazy"'
     );
+  });
+});
+
+describe("prova social pós-hero", () => {
+  it("mostra oficina e equipe logo após o hero, com fotos reais e sem priority", () => {
+    const page = fs.readFileSync(path.join(webSrc, "app/page.tsx"), "utf8");
+    const heroAt = page.indexOf("<HeroSection");
+    const proofAt = page.indexOf("<SocialProofSection");
+    const trustAt = page.indexOf("<TrustBar");
+    expect(heroAt).toBeGreaterThanOrEqual(0);
+    expect(proofAt).toBeGreaterThan(heroAt);
+    expect(trustAt).toBeGreaterThan(proofAt);
+
+    const proof = fs.readFileSync(path.join(webSrc, "components/home/SocialProofSection.tsx"), "utf8");
+    const paths = [
+      "/images/oficina/manutencao-honda.jpg",
+      "/images/equipe/equipe.jpg",
+    ];
+    for (const src of paths) {
+      expect(proof).toContain(src);
+      const file = path.join(publicDir, src.replace(/^\//, ""));
+      expect(fs.existsSync(file), src).toBe(true);
+      expect(fs.statSync(file).size, src).toBeGreaterThan(0);
+    }
+    expect(proof).toContain('loading="lazy"');
+    expect(proof).not.toMatch(/\bpriority\b/);
+    expect(proof).toContain("Oficina");
+    expect(proof).toContain("Equipe");
   });
 });
 

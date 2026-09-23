@@ -8,6 +8,7 @@ export const metadata: Metadata = {
     canonical: siteUrl(),
   },
 };
+import { SocialProofSection } from "@/components/home/SocialProofSection";
 import { TrustBar } from "@/components/home/TrustBar";
 import { BannersSection } from "@/components/home/BannersSection";
 import { StoreVisitSection } from "@/components/home/StoreVisitSection";
@@ -29,6 +30,7 @@ export default function HomePage() {
         }}
       />
       <HeroSection />
+      <SocialProofSection />
       <TrustBar />
       <section className="max-w-container mx-auto px-4 sm:px-6 py-8 md:py-12">
         <BannersSection />
