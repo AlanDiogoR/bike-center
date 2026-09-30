@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { StoreContactPair } from "@/components/contact/StoreContactLinks";
 import { WhatsAppIcon } from "./WhatsAppIcon";
-import { STORE, WHATSAPP, whatsappUrl } from "@/lib/site";
+import { STORE, WHATSAPP } from "@/lib/site";
 
 const LOJA_LINKS = [
   { href: "/", label: "Início" },
@@ -71,22 +72,16 @@ export function FooterNav() {
             </a>
           </li>
           <li>
-            <a
-              href={whatsappUrl("vivo")}
-              className="hover:text-[#25D366] hover:underline transition-colors flex items-center gap-1.5 min-h-11"
-            >
+            <StoreContactPair line="vivo" surface="onDark" linkClassName="px-3">
               <WhatsAppIcon className="w-4 h-4 flex-shrink-0" />
               Vivo {WHATSAPP.vivo.display}
-            </a>
+            </StoreContactPair>
           </li>
           <li>
-            <a
-              href={whatsappUrl("claro")}
-              className="hover:text-[#25D366] hover:underline transition-colors flex items-center gap-1.5 min-h-11"
-            >
+            <StoreContactPair line="claro" surface="onDark" linkClassName="px-3">
               <WhatsAppIcon className="w-4 h-4 flex-shrink-0" />
               Claro {WHATSAPP.claro.display}
-            </a>
+            </StoreContactPair>
           </li>
           <li className="pt-2">
             <p className="text-xs text-gray-500 font-medium mb-1">Horário de atendimento</p>

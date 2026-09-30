@@ -5,7 +5,7 @@ import { siteUrl } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Política de Privacidade",
   description:
-    "Política de privacidade da Bike Center Fartura: como a loja trata dados de contato, pedidos e navegação no site.",
+    "Política de privacidade da Bike Center Fartura: como a loja de motos, bikes e oficina em Fartura-SP trata dados de contato, pedidos e navegação no site.",
   alternates: {
     canonical: siteUrl("politica-privacidade"),
   },

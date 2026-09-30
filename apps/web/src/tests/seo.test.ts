@@ -10,7 +10,30 @@ describe("JSON-LD LocalBusiness", () => {
     expect(data.address.streetAddress).toBe("Rua Mário Stella, 355");
     expect(data.address.addressLocality).toBe("Fartura");
     expect(data.address.postalCode).toBe("18870-000");
-    expect(data.telephone).toEqual([`+${WHATSAPP.claro.e164}`, `+${WHATSAPP.vivo.e164}`]);
+    expect(WHATSAPP.claro.e164).toBe("5514991667793");
+    expect(WHATSAPP.vivo.e164).toBe("5514996325919");
+    expect(data.telephone).toEqual(["+5514991667793", "+5514996325919"]);
+    expect(data["@type"]).toContain("Store");
+    expect(data.description).toContain("Fartura-SP");
+    expect(data.description).toMatch(/motos/i);
+    expect(data.description).toMatch(/bikes/i);
+    expect(data.description).toMatch(/oficina/i);
+    expect(data.openingHoursSpecification).toEqual([
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "08:00",
+        closes: "18:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Saturday",
+        opens: "08:00",
+        closes: "13:00",
+      },
+    ]);
+    expect(JSON.stringify(data)).not.toContain("aggregateRating");
+    expect(data.hasMap).toBe(STORE.mapsPlaceUrl);
     expect(String(data.url).split("://")[1]).not.toContain("//");
     expect(String(data.image).split("://")[1]).not.toContain("//");
   });
@@ -48,7 +71,9 @@ describe("JSON-LD Product e Breadcrumb", () => {
     expect(data.offers.priceCurrency).toBe("BRL");
     expect(data.offers.availability).toBe("https://schema.org/InStock");
     expect(data.offers.seller["@type"]).toBe("LocalBusiness");
+    expect(data.offers.seller.telephone).toEqual(["+5514991667793", "+5514996325919"]);
     expect(data.offers.seller.address.streetAddress).toBe(STORE.street);
+    expect(JSON.stringify(data)).not.toContain("aggregateRating");
     expect(data.url).toMatch(/\/produtos\/honda-bros-azul$/);
     expect(data.image[0]).toMatch(/01-lateral\.webp$/);
     expect(data.image.at(-1)).toMatch(/02-capa-feed\.webp$/);

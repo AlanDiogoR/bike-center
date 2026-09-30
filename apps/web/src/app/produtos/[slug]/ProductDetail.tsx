@@ -19,7 +19,8 @@ import type { Product } from "@/lib/api";
 import { breadcrumbJsonLd, productJsonLd } from "@/lib/jsonld";
 import { galleryImages, isCutoutImage } from "@/lib/product-images";
 import { useCartStore } from "@/store/cart.store";
-import { COPY, STORE, WHATSAPP, formatBRL, whatsappUrl } from "@/lib/site";
+import { StoreContactPair } from "@/components/contact/StoreContactLinks";
+import { COPY, STORE, WHATSAPP, formatBRL } from "@/lib/site";
 
 interface ProductDetailProps {
   product: Product;
@@ -127,7 +128,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
             )}
           </div>
 
-          <div className="min-w-0 lg:sticky lg:top-24 lg:self-start">
+          <div className="min-w-0 lg:sticky lg:top-[calc(var(--header-main)_+_1rem)] lg:self-start">
             {product.category && (
               <Link
                 href={`/produtos?category=${product.category.slug}`}
@@ -160,25 +161,26 @@ export function ProductDetail({ product }: ProductDetailProps) {
             </p>
 
             <div className="flex flex-col gap-3">
-              <a
-                href={whatsappUrl("claro", interestText)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full flex flex-col items-center justify-center min-h-12 px-4 py-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-xl text-center text-base sm:text-lg shadow-lg leading-tight"
+              <StoreContactPair
+                line="claro"
+                surface="onLight"
+                text={interestText}
+                className="w-full"
+                linkClassName="min-h-12 flex-1 min-w-[12rem] flex-col px-4 py-3 rounded-xl text-base sm:text-lg font-bold shadow-lg"
               >
                 <span>{COPY.ctaWhatsApp}</span>
-                <span className="mt-0.5 text-sm font-semibold text-white/90">
-                  Claro {WHATSAPP.claro.display}
-                </span>
-              </a>
-              <a
-                href={whatsappUrl("vivo", interestText)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full flex items-center justify-center min-h-11 px-4 py-2.5 border-2 border-[#25D366] text-[#128C7E] hover:bg-[#25D366]/10 font-semibold rounded-xl text-center text-sm sm:text-base"
+                <span className="mt-0.5 text-sm font-semibold">Claro {WHATSAPP.claro.display}</span>
+              </StoreContactPair>
+              <StoreContactPair
+                line="vivo"
+                surface="onLight"
+                variant="outline"
+                text={interestText}
+                className="w-full"
+                linkClassName="flex-1 min-w-[12rem] rounded-xl text-sm sm:text-base"
               >
                 WhatsApp Vivo {WHATSAPP.vivo.display}
-              </a>
+              </StoreContactPair>
               <button
                 type="button"
                 onClick={() => {

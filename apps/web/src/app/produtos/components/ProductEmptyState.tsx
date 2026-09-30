@@ -1,4 +1,5 @@
-import { COPY, STORE, whatsappUrl } from "@/lib/site";
+import { WhatsAppLink } from "@/components/contact/StoreContactLinks";
+import { COPY, STORE } from "@/lib/site";
 
 interface ProductEmptyStateProps {
   hasCategory: boolean;
@@ -16,14 +17,9 @@ export function ProductEmptyState({ hasCategory }: ProductEmptyStateProps) {
           : "Vitrine em atualização. Peça orçamento no WhatsApp ou veja os anúncios no Mercado Livre."}
       </p>
       <div className="flex flex-col sm:flex-row gap-3 justify-center">
-        <a
-          href={whatsappUrl("claro")}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex min-h-11 items-center justify-center px-5 py-3 bg-[#25D366] text-white font-semibold rounded-full"
-        >
+        <WhatsAppLink line="claro" className="px-5 py-3">
           {COPY.ctaWhatsApp}
-        </a>
+        </WhatsAppLink>
         <a
           href={STORE.mercadoLivreUrl}
           target="_blank"

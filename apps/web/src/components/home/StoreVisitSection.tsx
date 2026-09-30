@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { MapPin, Clock } from "lucide-react";
-import { STORE, WHATSAPP, whatsappUrl } from "@/lib/site";
+import { WhatsAppLink } from "@/components/contact/StoreContactLinks";
+import { STORE, WHATSAPP } from "@/lib/site";
 
 export function StoreVisitSection() {
   return (
@@ -58,14 +59,9 @@ export function StoreVisitSection() {
               >
                 Como chegar
               </a>
-              <a
-                href={whatsappUrl("claro")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center justify-center px-5 py-3 border-2 border-brand-primary text-brand-primary font-semibold rounded-full text-center"
-              >
+              <WhatsAppLink line="claro" className="px-5 py-3">
                 WhatsApp Claro {WHATSAPP.claro.display}
-              </a>
+              </WhatsAppLink>
             </div>
           </div>
         </div>

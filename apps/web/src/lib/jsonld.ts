@@ -40,6 +40,7 @@ export function productJsonLd(product: ProductJsonLdInput) {
       seller: {
         "@type": "LocalBusiness",
         name: STORE.name,
+        telephone: [`+${WHATSAPP.claro.e164}`, `+${WHATSAPP.vivo.e164}`],
         address: {
           "@type": "PostalAddress",
           streetAddress: STORE.street,
@@ -76,7 +77,7 @@ export function localBusinessJsonLd() {
     url,
     image: siteUrl(STORE.defaultOgImage),
     logo: siteUrl("/logo.svg"),
-    description: STORE.tagline + " — motos, bikes, peças e oficina.",
+    description: `${STORE.tagline} — motos, bikes, peças e oficina em ${STORE.city}-${STORE.state}.`,
     email: STORE.email,
     telephone: [`+${WHATSAPP.claro.e164}`, `+${WHATSAPP.vivo.e164}`],
     address: {
