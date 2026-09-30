@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { COPY, STORE, whatsappUrl } from "@/lib/site";
+import { WhatsAppLink } from "@/components/contact/StoreContactLinks";
+import { COPY, STORE } from "@/lib/site";
 
 export function HeroSection() {
   return (
@@ -29,14 +30,9 @@ export function HeroSection() {
               {COPY.heroSubtitle}
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-3 max-w-md sm:max-w-none">
-              <a
-                href={whatsappUrl("claro")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center justify-center px-5 py-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold rounded-full text-center text-sm sm:text-base"
-              >
+              <WhatsAppLink line="claro" className="px-5 py-3 text-sm sm:text-base">
                 {COPY.ctaWhatsApp}
-              </a>
+              </WhatsAppLink>
               <a
                 href={STORE.mercadoLivreUrl}
                 target="_blank"

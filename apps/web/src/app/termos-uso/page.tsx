@@ -5,7 +5,7 @@ import { siteUrl } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Termos de Uso",
   description:
-    "Termos de uso do site da Bike Center Fartura, loja de motos, bikes, peças e oficina na Rua Mário Stella, 355.",
+    "Termos de uso do site da Bike Center Fartura, loja de motos, bikes, peças e oficina em Fartura-SP, na Rua Mário Stella, 355.",
   alternates: {
     canonical: siteUrl("termos-uso"),
   },

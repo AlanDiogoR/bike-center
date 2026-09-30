@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { STORE, WHATSAPP, siteUrl, whatsappUrl } from "@/lib/site";
+import { WhatsAppLink } from "@/components/contact/StoreContactLinks";
+import { STORE, WHATSAPP, siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Fale Conosco",
-  description: `Bike Center Fartura — ${STORE.street}, ${STORE.city}/${STORE.state}. WhatsApp Claro ${WHATSAPP.claro.display} e Vivo ${WHATSAPP.vivo.display}. ${STORE.hoursShort}.`,
+  title: "Contato da loja em Fartura-SP",
+  description: `Fale com a Bike Center em Fartura-SP: motos, bikes e oficina na ${STORE.street}. WhatsApp Claro ${WHATSAPP.claro.display} e Vivo ${WHATSAPP.vivo.display}. ${STORE.hoursShort}.`,
   alternates: {
     canonical: siteUrl("contato"),
   },
@@ -26,17 +27,15 @@ export default function ContatoPage() {
         <p>
           <strong>Horário:</strong> {STORE.hoursShort}
         </p>
-        <p>
-          <strong>WhatsApp Claro:</strong>{" "}
-          <a href={whatsappUrl("claro")} className="inline-flex min-h-11 items-center text-brand-primary hover:underline">
-            {WHATSAPP.claro.display}
-          </a>
+        <p className="flex flex-wrap items-center gap-2">
+          <strong>WhatsApp Claro:</strong>
+          <WhatsAppLink line="claro">{WHATSAPP.claro.display}</WhatsAppLink>
         </p>
-        <p>
-          <strong>WhatsApp Vivo:</strong>{" "}
-          <a href={whatsappUrl("vivo")} className="inline-flex min-h-11 items-center text-brand-primary hover:underline">
+        <p className="flex flex-wrap items-center gap-2">
+          <strong>WhatsApp Vivo:</strong>
+          <WhatsAppLink line="vivo" variant="outline">
             {WHATSAPP.vivo.display}
-          </a>
+          </WhatsAppLink>
         </p>
         <p className="text-sm text-gray-500">Resposta rápida no horário da loja.</p>
         <p>

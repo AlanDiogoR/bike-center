@@ -41,6 +41,18 @@ export const WHATSAPP = {
   },
 } as const;
 
+export type WhatsAppLine = keyof typeof WHATSAPP;
+
+/** href exato `tel:+E.164` — mesma dupla do JSON-LD e dos botões de WhatsApp. */
+export function telHref(line: WhatsAppLine): string {
+  return `tel:+${WHATSAPP[line].e164}`;
+}
+
+export function callAriaLabel(line: WhatsAppLine): string {
+  const phone = WHATSAPP[line];
+  return `Ligar para ${phone.label} ${phone.display}`;
+}
+
 const WHATSAPP_QUOTE_TEXT =
   "Olá! Gostaria de pedir um orçamento na Bike Center Fartura.";
 
@@ -112,7 +124,7 @@ export const COPY = {
   trustChannels: "WhatsApp · Mercado Livre · oficina e peças",
   returns: "Troca ou devolução em até 14 dias — fale no WhatsApp que a gente resolve.",
   supportHours: `${STORE.hoursShort}. Resposta rápida no horário da loja.`,
-  metaTitle: "Bike Center Fartura — Motos, bikes e oficina",
+  metaTitle: "Bike Center Fartura — Motos, bikes e oficina em Fartura-SP",
   metaDescription:
-    "Bike Center Fartura na Rua Mário Stella, 355. Motos, bikes novas e seminovas, peças e oficina. Há mais de 30 anos. Envio pelo Mercado Livre ou retire na loja.",
+    "Bike Center Fartura em Fartura-SP, na Rua Mário Stella, 355. Motos, bikes novas e seminovas, peças e oficina. Há mais de 30 anos. Envio pelo Mercado Livre ou retire na loja.",
 } as const;

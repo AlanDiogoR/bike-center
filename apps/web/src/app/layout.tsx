@@ -31,6 +31,7 @@ export const metadata: Metadata = {
     "bicicletas Fartura",
     "motos Fartura",
     "oficina de bikes",
+    "Fartura-SP",
     "Absolute",
     "Mercado Livre",
     "Rua Mário Stella",

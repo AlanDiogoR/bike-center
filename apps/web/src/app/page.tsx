@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { HeroSection } from "@/components/home/HeroSection";
-import { siteUrl } from "@/lib/site";
+import { COPY, siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
+  title: { absolute: COPY.metaTitle },
+  description: COPY.metaDescription,
   alternates: {
     canonical: siteUrl(),
   },

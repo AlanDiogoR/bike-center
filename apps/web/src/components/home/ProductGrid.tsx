@@ -3,7 +3,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "@/lib/api";
 import { ProductCard } from "@/components/ProductCard";
-import { COPY, STORE, whatsappUrl } from "@/lib/site";
+import { WhatsAppLink } from "@/components/contact/StoreContactLinks";
+import { COPY, STORE } from "@/lib/site";
 
 export function ProductGrid() {
   const { data, isLoading, isError } = useQuery({
@@ -35,14 +36,9 @@ export function ProductGrid() {
           Peça orçamento no WhatsApp ou veja o estoque no Mercado Livre.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <a
-            href={whatsappUrl("claro")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex min-h-11 items-center justify-center px-5 py-3 bg-[#25D366] text-white font-semibold rounded-full"
-          >
+          <WhatsAppLink line="claro" className="px-5 py-3">
             {COPY.ctaWhatsApp}
-          </a>
+          </WhatsAppLink>
           <a
             href={STORE.mercadoLivreUrl}
             target="_blank"

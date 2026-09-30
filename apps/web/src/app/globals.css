@@ -24,6 +24,52 @@
   --brand-success: #22c55e;
   --brand-warning: #e37e16;
   --brand-error: #aa2826;
+  /* Altura do header sticky: barra principal + faixa de telefone. */
+  --header-main: 3.5rem;
+  --header-contact: 7rem;
+  /* WhatsApp sólido: branco sobre #1a7f3c. Hover mais escuro. Disabled neutro. */
+  --wa-solid-bg: #1a7f3c;
+  --wa-solid-fg: #ffffff;
+  --wa-solid-hover-bg: #146030;
+  --wa-solid-hover-fg: #ffffff;
+  --wa-solid-focus-bg: #1a7f3c;
+  --wa-solid-focus-fg: #ffffff;
+  --wa-solid-disabled-bg: #404040;
+  --wa-solid-disabled-fg: #ffffff;
+  /* WhatsApp contorno: #1a7f3c sobre branco; hover inverte para o sólido escuro. */
+  --wa-outline-bg: #ffffff;
+  --wa-outline-fg: #1a7f3c;
+  --wa-outline-hover-bg: #146030;
+  --wa-outline-hover-fg: #ffffff;
+  --wa-outline-focus-bg: #ffffff;
+  --wa-outline-focus-fg: #1a7f3c;
+  --wa-outline-disabled-bg: #ffffff;
+  --wa-outline-disabled-fg: #525252;
+  /* Link de WhatsApp só no rodapé escuro. Verde claro sobre #0a0a0a. */
+  --wa-link-bg: #0a0a0a;
+  --wa-link-fg: #86efac;
+  --wa-link-hover-bg: #0a0a0a;
+  --wa-link-hover-fg: #dcfce7;
+  --wa-link-focus-bg: #0a0a0a;
+  --wa-link-focus-fg: #86efac;
+  /* Ligar em superfície clara. */
+  --call-bg: #0a0a0a;
+  --call-fg: #ffffff;
+  --call-hover-bg: #262626;
+  --call-hover-fg: #ffffff;
+  --call-focus-bg: #0a0a0a;
+  --call-focus-fg: #ffffff;
+  --call-disabled-bg: #404040;
+  --call-disabled-fg: #ffffff;
+  /* Ligar no header/rodapé escuros. */
+  --call-on-dark-bg: #ffffff;
+  --call-on-dark-fg: #0a0a0a;
+  --call-on-dark-hover-bg: #e5e5e5;
+  --call-on-dark-hover-fg: #0a0a0a;
+  --call-on-dark-focus-bg: #ffffff;
+  --call-on-dark-focus-fg: #0a0a0a;
+  --call-on-dark-disabled-bg: #d4d4d4;
+  --call-on-dark-disabled-fg: #0a0a0a;
   --container-max: 1800px;
   --radius-button: 60px;
   --radius-input: 10px;
@@ -36,4 +82,171 @@ body {
 
 img, video, svg {
   max-width: 100%;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --header-main: 4rem;
+    --header-contact: 3.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --header-main: 5rem;
+  }
+}
+
+@layer components {
+  .btn-whatsapp,
+  .btn-whatsapp-outline,
+  .btn-call,
+  .btn-call-on-dark,
+  .link-whatsapp {
+    text-decoration: none;
+  }
+
+  .btn-whatsapp,
+  .btn-whatsapp-outline,
+  .btn-call,
+  .btn-call-on-dark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+    line-height: 1.25;
+    border-radius: 9999px;
+  }
+
+  .btn-call,
+  .btn-call-on-dark {
+    flex-shrink: 0;
+  }
+
+  .btn-whatsapp {
+    background-color: var(--wa-solid-bg);
+    color: var(--wa-solid-fg);
+    border: 2px solid var(--wa-solid-bg);
+  }
+
+  .btn-whatsapp:hover {
+    background-color: var(--wa-solid-hover-bg);
+    color: var(--wa-solid-hover-fg);
+    border-color: var(--wa-solid-hover-bg);
+  }
+
+  .btn-whatsapp:focus-visible {
+    background-color: var(--wa-solid-focus-bg);
+    color: var(--wa-solid-focus-fg);
+    border-color: var(--wa-solid-focus-bg);
+  }
+
+  .btn-whatsapp:disabled,
+  .btn-whatsapp[aria-disabled="true"] {
+    background-color: var(--wa-solid-disabled-bg);
+    color: var(--wa-solid-disabled-fg);
+    border-color: var(--wa-solid-disabled-bg);
+    cursor: not-allowed;
+  }
+
+  .btn-whatsapp-outline {
+    background-color: var(--wa-outline-bg);
+    color: var(--wa-outline-fg);
+    border: 2px solid var(--wa-outline-fg);
+  }
+
+  .btn-whatsapp-outline:hover {
+    background-color: var(--wa-outline-hover-bg);
+    color: var(--wa-outline-hover-fg);
+    border-color: var(--wa-outline-hover-bg);
+  }
+
+  .btn-whatsapp-outline:focus-visible {
+    background-color: var(--wa-outline-focus-bg);
+    color: var(--wa-outline-focus-fg);
+    border-color: var(--wa-outline-fg);
+  }
+
+  .btn-whatsapp-outline:disabled,
+  .btn-whatsapp-outline[aria-disabled="true"] {
+    background-color: var(--wa-outline-disabled-bg);
+    color: var(--wa-outline-disabled-fg);
+    border-color: var(--wa-outline-disabled-fg);
+    cursor: not-allowed;
+  }
+
+  .link-whatsapp {
+    color: var(--wa-link-fg);
+  }
+
+  .link-whatsapp:hover {
+    color: var(--wa-link-hover-fg);
+  }
+
+  .link-whatsapp:focus-visible {
+    color: var(--wa-link-focus-fg);
+  }
+
+  .btn-call {
+    background-color: var(--call-bg);
+    color: var(--call-fg);
+    border: 2px solid var(--call-bg);
+  }
+
+  .btn-call:hover {
+    background-color: var(--call-hover-bg);
+    color: var(--call-hover-fg);
+    border-color: var(--call-hover-bg);
+  }
+
+  .btn-call:focus-visible {
+    background-color: var(--call-focus-bg);
+    color: var(--call-focus-fg);
+    border-color: var(--call-focus-bg);
+  }
+
+  .btn-call:disabled,
+  .btn-call[aria-disabled="true"] {
+    background-color: var(--call-disabled-bg);
+    color: var(--call-disabled-fg);
+    border-color: var(--call-disabled-bg);
+    cursor: not-allowed;
+  }
+
+  .btn-call-on-dark {
+    background-color: var(--call-on-dark-bg);
+    color: var(--call-on-dark-fg);
+    border: 2px solid var(--call-on-dark-bg);
+  }
+
+  .btn-call-on-dark:hover {
+    background-color: var(--call-on-dark-hover-bg);
+    color: var(--call-on-dark-hover-fg);
+    border-color: var(--call-on-dark-hover-bg);
+  }
+
+  .btn-call-on-dark:focus-visible {
+    background-color: var(--call-on-dark-focus-bg);
+    color: var(--call-on-dark-focus-fg);
+    border-color: var(--call-on-dark-focus-bg);
+  }
+
+  .btn-call-on-dark:disabled,
+  .btn-call-on-dark[aria-disabled="true"] {
+    background-color: var(--call-on-dark-disabled-bg);
+    color: var(--call-on-dark-disabled-fg);
+    border-color: var(--call-on-dark-disabled-bg);
+    cursor: not-allowed;
+  }
+
+  .btn-whatsapp:focus-visible,
+  .btn-whatsapp-outline:focus-visible,
+  .btn-call:focus-visible,
+  .btn-call-on-dark:focus-visible,
+  .link-whatsapp:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px #0a0a0a;
+  }
 }

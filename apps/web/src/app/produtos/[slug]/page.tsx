@@ -13,11 +13,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const { slug } = await params;
     const product = await getProduct(slug, { next: { revalidate: 60 } });
-    const description =
+    const summary =
       product.shortDescription ??
       (product.description.length > 155
         ? product.description.slice(0, 152) + "..."
         : product.description);
+    const description = summary.includes("Fartura-SP")
+      ? summary
+      : `${summary} Motos, bikes e oficina em Fartura-SP.`;
     const image = pickListingImage(product.images) || STORE.defaultOgImage;
     return {
       title: product.name,

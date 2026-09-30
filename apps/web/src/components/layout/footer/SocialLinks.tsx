@@ -20,7 +20,7 @@ export function SocialLinks() {
         href={whatsappUrl("claro")}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-2 text-[#25D366] hover:opacity-90 transition-opacity min-h-11"
+        className="link-whatsapp flex items-center gap-2 min-h-11"
         aria-label={`WhatsApp Claro ${WHATSAPP.claro.display}`}
       >
         <WhatsAppIcon className="w-5 h-5" />

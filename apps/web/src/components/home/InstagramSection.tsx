@@ -10,11 +10,8 @@ export function InstagramSection() {
         <h2 className="font-heading font-bold text-xl sm:text-2xl md:text-3xl uppercase tracking-[0.015em] mb-4">
           {STORE.instagramHandle}
         </h2>
-        <p className="text-gray-400 max-w-xl mx-auto mb-2">
+        <p className="text-gray-400 max-w-xl mx-auto mb-8">
           Fotos reais da loja em Fartura — bikes Absolute, motos, oficina e novidades de estoque.
-        </p>
-        <p className="text-gray-500 text-sm mb-8">
-          Fotos e stories da loja — o embed do feed entra em um próximo passo.
         </p>
         <a
           href={STORE.instagramUrl}

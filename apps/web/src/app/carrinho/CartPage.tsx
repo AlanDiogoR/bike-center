@@ -95,7 +95,7 @@ export function CartPage() {
         </div>
 
         <div className="lg:col-span-1">
-          <div className="p-6 bg-brand-dialog rounded-[12px] border border-gray-100 sticky top-24">
+          <div className="p-6 bg-brand-dialog rounded-[12px] border border-gray-100 sticky top-[calc(var(--header-main)_+_var(--header-contact)_+_1rem)]">
             <h3 className="font-semibold text-lg mb-4">Resumo</h3>
             <p className="text-xl font-bold text-brand-text mb-6">
               Total: {formatBRL(totalPrice())}
