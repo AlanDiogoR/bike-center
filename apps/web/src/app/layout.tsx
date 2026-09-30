@@ -78,7 +78,7 @@ export default function RootLayout({
         />
         <a
           href="#main"
-          className="absolute -left-[9999px] focus:left-4 focus:top-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-brand-primary focus:text-white focus:rounded-[60px] focus:outline-none"
+          className="surface-brand-orange absolute -left-[9999px] focus:left-4 focus:top-4 focus:z-50 focus:px-4 focus:py-2 focus:rounded-[60px]"
         >
           Pular para o conteúdo
         </a>

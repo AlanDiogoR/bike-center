@@ -17,7 +17,7 @@ function keepCityIntact(text: string) {
 export function AnnouncementBar() {
   return (
     <div
-      className="bg-brand-primary text-white text-center px-3 text-xs sm:text-sm overflow-hidden"
+      className="surface-brand-orange text-center px-3 text-xs sm:text-sm overflow-hidden"
       role="region"
       aria-label="Anúncio"
     >
