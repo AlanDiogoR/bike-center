@@ -51,7 +51,7 @@ export function ProductFilters({ categories, category, search }: ProductFiltersP
             <Link
               href="/produtos"
               className={`inline-flex items-center min-h-11 px-4 sm:px-5 py-2 rounded-full font-medium text-sm whitespace-nowrap flex-shrink-0 transition-all ${
-                !category ? "bg-brand-primary text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                !category ? "surface-brand-orange" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
               Todos
@@ -61,7 +61,7 @@ export function ProductFilters({ categories, category, search }: ProductFiltersP
                 key={cat.id}
                 href={`/produtos?category=${cat.slug}`}
                 className={`inline-flex items-center min-h-11 px-4 sm:px-5 py-2 rounded-full font-medium text-sm whitespace-nowrap flex-shrink-0 transition-all ${
-                  category === cat.slug ? "bg-brand-primary text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  category === cat.slug ? "surface-brand-orange" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
                 {cat.name}

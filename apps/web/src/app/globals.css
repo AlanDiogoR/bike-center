@@ -6,7 +6,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;1,6..12,400&family=Outfit:wght@600;700&display=swap");
 
 :root {
-  /* Tema Bike Center: laranja #ec6e37, preto, verde CTA */
+  /* Identidade: #ec6e37 em texto e ícones. Não é fundo de texto branco. */
   --brand-background: #ffffff;
   --brand-text: #0a0a0a;
   --brand-header-bg: #0a0a0a;
@@ -17,6 +17,8 @@
   --brand-primary-text: #ffffff;
   --brand-secondary: #ec6e37;
   --brand-secondary-text: #ffffff;
+  /* Token único de laranja com texto branco. #ffffff sobre #c2410c = 5,18:1. */
+  --brand-orange: #c2410c;
   --brand-cta: #22c55e;
   --brand-cta-hover: #16a34a;
   --brand-on-sale: #e34f4f;
@@ -247,4 +249,54 @@ img, video, svg {
     outline-offset: 3px;
     box-shadow: 0 0 0 6px #0a0a0a;
   }
+}
+
+/* Fora de @layer: o token de contraste não perde para utilitários do Tailwind. */
+.btn-brand-orange {
+  background-color: var(--brand-orange);
+  color: #ffffff;
+  border: 2px solid var(--brand-orange);
+}
+
+.btn-brand-orange:hover {
+  background-color: #ffffff;
+  color: var(--brand-orange);
+  border-color: var(--brand-orange);
+}
+
+.btn-brand-orange:focus,
+.btn-brand-orange:focus-visible {
+  background-color: var(--brand-orange);
+  color: #ffffff;
+  border-color: var(--brand-orange);
+}
+
+.btn-brand-orange:focus-visible {
+  outline: 2px solid #0a0a0a;
+  outline-offset: 2px;
+}
+
+.btn-brand-orange:disabled,
+.btn-brand-orange[aria-disabled="true"] {
+  background-color: var(--brand-orange);
+  color: #ffffff;
+  border-color: var(--brand-orange);
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.surface-brand-orange,
+.surface-brand-orange:hover,
+.surface-brand-orange:focus,
+.surface-brand-orange:focus-visible,
+.surface-brand-orange:disabled,
+.surface-brand-orange[aria-disabled="true"] {
+  background-color: var(--brand-orange);
+  color: #ffffff;
+}
+
+.surface-brand-orange:focus-visible,
+.surface-brand-orange a:focus-visible {
+  outline: 2px solid #0a0a0a;
+  outline-offset: -2px;
 }

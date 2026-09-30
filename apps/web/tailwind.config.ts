@@ -1,7 +1,8 @@
 import type { Config } from "tailwindcss";
 
 /**
- * Tema Bike Center: #ec6e37 (laranja), preto, verde para compra (estilo Pagani Design)
+ * Tema Bike Center: laranja de identidade #ec6e37 (texto e ícones), preto, verde de compra.
+ * Laranja com texto branco: brand.orange → var(--brand-orange), um único token (#c2410c).
  */
 const config: Config = {
   content: [
@@ -21,6 +22,7 @@ const config: Config = {
           footerText: "#ffffff",
           primary: "#ec6e37",
           primaryText: "#ffffff",
+          orange: "var(--brand-orange)",
           secondary: "#ec6e37",
           secondaryText: "#ffffff",
           accent: "#ec6e37",

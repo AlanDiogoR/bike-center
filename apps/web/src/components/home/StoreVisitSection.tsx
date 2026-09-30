@@ -55,7 +55,7 @@ export function StoreVisitSection() {
                 href={STORE.mapsDirUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center justify-center px-5 py-3 bg-brand-primary text-white font-semibold rounded-full text-center"
+                className="surface-brand-orange inline-flex min-h-11 items-center justify-center px-5 py-3 font-semibold rounded-full text-center"
               >
                 Como chegar
               </a>
