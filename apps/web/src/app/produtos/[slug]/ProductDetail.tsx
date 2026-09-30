@@ -128,7 +128,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
             )}
           </div>
 
-          <div className="min-w-0 lg:sticky lg:top-[calc(var(--header-main)_+_var(--header-contact)_+_1rem)] lg:self-start">
+          <div className="min-w-0 lg:sticky lg:top-[calc(var(--header-main)_+_1rem)] lg:self-start">
             {product.category && (
               <Link
                 href={`/produtos?category=${product.category.slug}`}

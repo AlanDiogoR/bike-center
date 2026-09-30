@@ -133,6 +133,10 @@ export function Header() {
               />
             </form>
           )}
+        </div>
+      </header>
+      <div className="bg-brand-headerBg border-b border-gray-800">
+        <div className="max-w-container mx-auto px-3 sm:px-6">
           <div className="grid grid-cols-1 gap-2 py-2 min-h-[7rem] sm:min-h-[3.75rem] sm:grid-cols-2 lg:flex lg:flex-wrap">
             <StoreContactPair line="claro" surface="onDark" linkClassName="flex-1 sm:flex-none">
               WhatsApp Claro
@@ -142,7 +146,7 @@ export function Header() {
             </StoreContactPair>
           </div>
         </div>
-      </header>
+      </div>
 
       <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
     </>

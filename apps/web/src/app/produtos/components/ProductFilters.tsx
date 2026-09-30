@@ -21,7 +21,7 @@ export function ProductFilters({ categories, category, search }: ProductFiltersP
   const searchParams = useSearchParams();
 
   return (
-    <div className="bg-white border-b border-gray-200 sticky top-[calc(var(--header-main)_+_var(--header-contact))] z-30 shadow-sm">
+    <div className="bg-white border-b border-gray-200 sticky top-[var(--header-main)] z-30 shadow-sm">
       <div className="max-w-container mx-auto px-4 sm:px-6 py-4">
         <form
           onSubmit={(e) => {

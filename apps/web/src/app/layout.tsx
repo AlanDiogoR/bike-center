@@ -70,8 +70,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className="overflow-x-hidden">
-      <body className="min-h-screen flex flex-col font-sans overflow-x-hidden max-w-[100vw]">
+    <html lang="pt-BR" className="overflow-x-clip">
+      <body className="min-h-screen flex flex-col font-sans overflow-x-clip max-w-[100vw]">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd()) }}

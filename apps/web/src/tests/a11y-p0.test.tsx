@@ -66,6 +66,17 @@ describe("tel: da loja", () => {
     expect(pair).toContain("\n      Ligar\n");
     expect(pair).toContain("WhatsAppLink");
   });
+
+  it("deixa sticky só a barra do logo; WhatsApp e Ligar rolam com a página", () => {
+    const header = read("components/layout/Header.tsx");
+    const headerClose = header.indexOf("</header>");
+    const contactAt = header.indexOf("<StoreContactPair");
+    expect(header).toContain("sticky top-0");
+    expect(headerClose).toBeGreaterThan(-1);
+    expect(contactAt).toBeGreaterThan(headerClose);
+    expect(header.slice(headerClose)).not.toContain("sticky");
+    expect(COPY.metaTitle).toContain("Fartura");
+  });
 });
 
 describe("placeholder de feed", () => {
