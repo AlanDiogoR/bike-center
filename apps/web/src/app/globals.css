@@ -6,7 +6,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;1,6..12,400&family=Outfit:wght@600;700&display=swap");
 
 :root {
-  /* Identidade: #ec6e37 em texto e ícones. Não é fundo de texto branco. */
+  /* Identidade: #ec6e37 em texto e ícones sobre fundo escuro. Não é fundo de texto branco. */
   --brand-background: #ffffff;
   --brand-text: #0a0a0a;
   --brand-header-bg: #0a0a0a;
@@ -19,6 +19,8 @@
   --brand-secondary-text: #ffffff;
   /* Token único de laranja com texto branco. #ffffff sobre #c2410c = 5,18:1. */
   --brand-orange: #c2410c;
+  /* Texto e ícones sobre fundo claro. Mesmo hex, sem valor solto. */
+  --brand-orange-text: var(--brand-orange);
   --brand-cta: #22c55e;
   --brand-cta-hover: #16a34a;
   --brand-on-sale: #e34f4f;

@@ -34,7 +34,7 @@ export function CheckoutPage() {
       <div className="max-w-container mx-auto px-4 sm:px-6 py-16 text-center">
         <h2 className="font-heading font-bold text-xl mb-4">Carrinho vazio</h2>
         <p className="text-brand-text mb-6">Adicione produtos para finalizar a compra.</p>
-        <Link href="/produtos" className="text-brand-primary font-semibold hover:underline">
+        <Link href="/produtos" className="text-brand-orangeText font-semibold hover:underline">
           Ver produtos
         </Link>
       </div>
@@ -97,9 +97,9 @@ export function CheckoutPage() {
   return (
     <div className="max-w-container mx-auto px-4 sm:px-6 py-12">
       <nav className="mb-8 text-sm">
-        <Link href="/" className="text-gray-500 hover:text-brand-primary">Início</Link>
+        <Link href="/" className="text-gray-500 hover:text-brand-orangeText">Início</Link>
         <span className="mx-2 text-gray-400">/</span>
-        <Link href="/carrinho" className="text-gray-500 hover:text-brand-primary">Carrinho</Link>
+        <Link href="/carrinho" className="text-gray-500 hover:text-brand-orangeText">Carrinho</Link>
         <span className="mx-2 text-gray-400">/</span>
         <span className="text-brand-text font-medium">Checkout</span>
       </nav>

@@ -49,7 +49,7 @@ export default function TermosUsoPage() {
           content: (
             <p>
               Dúvidas:{" "}
-              <a href="mailto:bikecenterfartura@gmail.com" className="text-brand-primary hover:underline">
+              <a href="mailto:bikecenterfartura@gmail.com" className="text-brand-orangeText hover:underline">
                 bikecenterfartura@gmail.com
               </a>
             </p>

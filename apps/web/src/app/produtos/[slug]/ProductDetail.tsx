@@ -53,11 +53,11 @@ export function ProductDetail({ product }: ProductDetailProps) {
 
       <div className="bg-gray-50 border-b border-gray-100 overflow-hidden">
         <nav className="max-w-container mx-auto px-4 sm:px-6 py-1 text-sm flex items-center gap-1 min-w-0">
-          <Link href="/" className="text-gray-500 hover:text-brand-primary flex-shrink-0 inline-flex min-h-11 items-center">
+          <Link href="/" className="text-gray-500 hover:text-brand-orangeText flex-shrink-0 inline-flex min-h-11 items-center">
             Início
           </Link>
           <span className="mx-1 text-gray-400 flex-shrink-0">/</span>
-          <Link href="/produtos" className="text-gray-500 hover:text-brand-primary flex-shrink-0 inline-flex min-h-11 items-center">
+          <Link href="/produtos" className="text-gray-500 hover:text-brand-orangeText flex-shrink-0 inline-flex min-h-11 items-center">
             Produtos
           </Link>
           <span className="mx-1 text-gray-400 flex-shrink-0">/</span>
@@ -132,7 +132,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
             {product.category && (
               <Link
                 href={`/produtos?category=${product.category.slug}`}
-                className="text-brand-primary text-sm font-medium hover:underline mb-2 inline-flex min-h-11 items-center"
+                className="text-brand-orangeText text-sm font-medium hover:underline mb-2 inline-flex min-h-11 items-center"
               >
                 {product.category.name}
               </Link>
@@ -203,19 +203,19 @@ export function ProductDetail({ product }: ProductDetailProps) {
 
             <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-6 mt-6 py-6 border-y border-gray-100">
               <span className="flex items-center gap-2 text-sm text-gray-600">
-                <Truck size={18} className="text-brand-primary flex-shrink-0" />
+                <Truck size={18} className="text-brand-orangeText flex-shrink-0" />
                 {COPY.announcementPreferred}
               </span>
               <span className="flex items-center gap-2 text-sm text-gray-600">
-                <Shield size={18} className="text-brand-primary flex-shrink-0" />
+                <Shield size={18} className="text-brand-orangeText flex-shrink-0" />
                 Loja física em Fartura
               </span>
               <span className="flex items-center gap-2 text-sm text-gray-600">
-                <RotateCcw size={18} className="text-brand-primary flex-shrink-0" />
+                <RotateCcw size={18} className="text-brand-orangeText flex-shrink-0" />
                 Troca em 14 dias via WhatsApp
               </span>
               <span className="flex items-center gap-2 text-sm text-gray-600">
-                <Clock size={18} className="text-brand-primary flex-shrink-0" />
+                <Clock size={18} className="text-brand-orangeText flex-shrink-0" />
                 {STORE.tagline}
               </span>
             </div>
@@ -224,15 +224,15 @@ export function ProductDetail({ product }: ProductDetailProps) {
               <h3 className="font-semibold text-brand-text mb-3">O que está incluído</h3>
               <ul className="space-y-2 text-sm text-gray-700">
                 <li className="flex items-center gap-2">
-                  <Check size={18} className="text-brand-primary flex-shrink-0" />
+                  <Check size={18} className="text-brand-orangeText flex-shrink-0" />
                   Produto da loja física — conferência no balcão
                 </li>
                 <li className="flex items-center gap-2">
-                  <Package size={18} className="text-brand-primary flex-shrink-0" />
+                  <Package size={18} className="text-brand-orangeText flex-shrink-0" />
                   Retirada em Fartura ou envio pelo Mercado Livre
                 </li>
                 <li className="flex items-center gap-2">
-                  <Shield size={18} className="text-brand-primary flex-shrink-0" />
+                  <Shield size={18} className="text-brand-orangeText flex-shrink-0" />
                   Orientação da oficina quando fizer sentido
                 </li>
               </ul>
@@ -253,7 +253,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
               <Accordion.Header>
                 <Accordion.Trigger className="group flex w-full items-center justify-between min-h-11 px-4 sm:px-6 py-4 text-left font-semibold hover:bg-gray-50 transition-colors data-[state=open]:bg-gray-50">
                   Descrição completa
-                  <ChevronDown size={20} className="text-brand-primary shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                  <ChevronDown size={20} className="text-brand-orangeText shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180" />
                 </Accordion.Trigger>
               </Accordion.Header>
               <Accordion.Content className="px-4 sm:px-6 pb-6">
@@ -267,7 +267,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
               <Accordion.Header>
                 <Accordion.Trigger className="group flex w-full items-center justify-between min-h-11 px-4 sm:px-6 py-4 text-left font-semibold hover:bg-gray-50 transition-colors data-[state=open]:bg-gray-50">
                   Especificações
-                  <ChevronDown size={20} className="text-brand-primary shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                  <ChevronDown size={20} className="text-brand-orangeText shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180" />
                 </Accordion.Trigger>
               </Accordion.Header>
               <Accordion.Content className="px-4 sm:px-6 pb-6">
@@ -298,7 +298,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
               <Accordion.Header>
                 <Accordion.Trigger className="group flex w-full items-center justify-between min-h-11 px-4 sm:px-6 py-4 text-left font-semibold hover:bg-gray-50 transition-colors data-[state=open]:bg-gray-50">
                   Envio e retirada
-                  <ChevronDown size={20} className="text-brand-primary shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                  <ChevronDown size={20} className="text-brand-orangeText shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180" />
                 </Accordion.Trigger>
               </Accordion.Header>
               <Accordion.Content className="px-4 sm:px-6 pb-6 text-brand-text">

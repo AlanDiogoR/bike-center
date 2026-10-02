@@ -40,7 +40,7 @@ export default function ContatoPage() {
         <p className="text-sm text-gray-500">Resposta rápida no horário da loja.</p>
         <p>
           <strong>E-mail:</strong>{" "}
-          <a href={`mailto:${STORE.email}`} className="text-brand-primary hover:underline">
+          <a href={`mailto:${STORE.email}`} className="text-brand-orangeText hover:underline">
             {STORE.email}
           </a>
         </p>
@@ -50,7 +50,7 @@ export default function ContatoPage() {
             href={STORE.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-primary hover:underline"
+            className="text-brand-orangeText hover:underline"
           >
             {STORE.instagramHandle}
           </a>
@@ -61,7 +61,7 @@ export default function ContatoPage() {
             href={STORE.mercadoLivreUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-primary hover:underline"
+            className="text-brand-orangeText hover:underline"
           >
             Ver anúncios da loja
           </a>
@@ -72,7 +72,7 @@ export default function ContatoPage() {
             href={STORE.mapsDirUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-11 items-center text-brand-primary hover:underline"
+            className="inline-flex min-h-11 items-center text-brand-orangeText hover:underline"
           >
             Como chegar
           </a>
@@ -83,7 +83,7 @@ export default function ContatoPage() {
             href={STORE.hubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-primary hover:underline"
+            className="text-brand-orangeText hover:underline"
           >
             contatobikecenter.netlify.app
           </a>
