@@ -307,10 +307,10 @@ const DARK_CSS_BACKGROUNDS = new Set(["#0a0a0a", "#000000", GRAY_900, "#1f2937"]
  * Componentes sem fundo próprio: só entram no rodapé escuro.
  * A varredura trata a raiz como escura e o teste confirma o único importador.
  */
-const DARK_FRAGMENT_FILES = new Set([
+const DARK_FRAGMENT_FILES = [
   "components/layout/footer/FooterNav.tsx",
   "components/layout/footer/SocialLinks.tsx",
-]);
+];
 
 const LIGHT_ORANGE_TEXT_COUNTS: Record<string, number> = {
   "components/home/SocialProofSection.tsx": 1,
@@ -630,7 +630,7 @@ describe("contraste do laranja como texto sobre fundo claro", () => {
     for (const file of sourceFiles) {
       const rel = relSrc(file);
       const src = fs.readFileSync(file, "utf8");
-      expect(lightOrangeTextViolations(src, DARK_FRAGMENT_FILES.has(rel)), rel).toEqual([]);
+      expect(lightOrangeTextViolations(src, DARK_FRAGMENT_FILES.includes(rel)), rel).toEqual([]);
       expect(countUtility(src, "text-brand-orangeText"), rel).toBe(LIGHT_ORANGE_TEXT_COUNTS[rel] ?? 0);
       expect(countUtility(src, "text-brand-primary"), rel).toBe(DARK_ORANGE_TEXT_COUNTS[rel] ?? 0);
       expect(countUtility(src, "text-brand-secondary"), rel).toBe(0);
