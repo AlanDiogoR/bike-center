@@ -41,13 +41,13 @@ export function StoreVisitSection() {
               {STORE.tagline}. Motos, bikes novas e seminovas, peças e oficina no mesmo endereço.
             </p>
             <p className="flex items-start gap-2 text-brand-text mb-2">
-              <MapPin size={20} className="flex-shrink-0 mt-0.5 text-brand-primary" />
+              <MapPin size={20} className="flex-shrink-0 mt-0.5 text-brand-orangeText" />
               <span>
                 {STORE.street} — {STORE.neighborhood}, {STORE.city}/{STORE.state} · CEP {STORE.postalCode}
               </span>
             </p>
             <p className="flex items-start gap-2 text-gray-600 mb-6">
-              <Clock size={20} className="flex-shrink-0 mt-0.5 text-brand-primary" />
+              <Clock size={20} className="flex-shrink-0 mt-0.5 text-brand-orangeText" />
               <span>{STORE.hoursShort}</span>
             </p>
             <div className="flex flex-col sm:flex-row gap-3">

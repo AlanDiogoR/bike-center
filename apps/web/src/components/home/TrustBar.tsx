@@ -36,7 +36,7 @@ export function TrustBar() {
           {benefits.map(({ icon: Icon, title, description }) => (
             <div key={title} className="flex flex-row items-start gap-3 p-2 sm:p-3">
               <span
-                className="flex-shrink-0 w-11 h-11 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary"
+                className="flex-shrink-0 w-11 h-11 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-orangeText"
                 aria-hidden
               >
                 <Icon size={22} strokeWidth={1.5} />

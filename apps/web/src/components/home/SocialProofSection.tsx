@@ -27,7 +27,7 @@ export function SocialProofSection() {
   return (
     <section aria-labelledby="prova-social-titulo" className="border-b border-gray-100 bg-white">
       <div className="max-w-container mx-auto px-4 sm:px-6 py-8 md:py-12">
-        <p className="text-brand-primary font-semibold text-xs sm:text-sm uppercase tracking-wide">
+        <p className="text-brand-orangeText font-semibold text-xs sm:text-sm uppercase tracking-wide">
           {STORE.tagline}
         </p>
         <h2

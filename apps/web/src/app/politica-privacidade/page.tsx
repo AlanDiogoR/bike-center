@@ -51,7 +51,7 @@ export default function PoliticaPrivacidadePage() {
           content: (
             <p>
               Para dúvidas sobre privacidade, entre em contato:{" "}
-              <a href="mailto:bikecenterfartura@gmail.com" className="text-brand-primary hover:underline">
+              <a href="mailto:bikecenterfartura@gmail.com" className="text-brand-orangeText hover:underline">
                 bikecenterfartura@gmail.com
               </a>
             </p>

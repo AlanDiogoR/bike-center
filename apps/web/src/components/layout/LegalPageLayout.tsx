@@ -38,7 +38,7 @@ export function LegalPageLayout({
               key={i}
               className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 md:p-8"
             >
-              <h2 className="font-heading font-semibold text-xl text-brand-primary mb-4 border-b border-gray-100 pb-3">
+              <h2 className="font-heading font-semibold text-xl text-brand-orangeText mb-4 border-b border-gray-100 pb-3">
                 {section.title}
               </h2>
               <div className="prose prose-gray max-w-none text-brand-text/90 leading-relaxed">
@@ -53,7 +53,7 @@ export function LegalPageLayout({
             Dúvidas? Entre em contato:{" "}
             <a
               href="mailto:bikecenterfartura@gmail.com"
-              className="text-brand-primary font-medium hover:underline"
+              className="text-brand-orangeText font-medium hover:underline"
             >
               bikecenterfartura@gmail.com
             </a>

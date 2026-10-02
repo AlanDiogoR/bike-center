@@ -140,7 +140,7 @@ export function CadastroForm() {
       </button>
         <p className="text-center text-sm text-brand-text">
         Já tem conta?{" "}
-        <Link href="/login" className="text-brand-primary font-medium hover:underline">
+        <Link href="/login" className="text-brand-orangeText font-medium hover:underline">
           Entrar
         </Link>
       </p>

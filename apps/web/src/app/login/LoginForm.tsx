@@ -105,7 +105,7 @@ export function LoginForm() {
       </button>
         <p className="text-center text-sm text-brand-text">
         Não tem conta?{" "}
-        <Link href="/cadastro" className="text-brand-primary font-medium hover:underline">
+        <Link href="/cadastro" className="text-brand-orangeText font-medium hover:underline">
           Cadastre-se
         </Link>
       </p>

@@ -53,7 +53,7 @@ export function FAQSection() {
               className="w-full flex items-center justify-between gap-3 min-h-11 p-4 md:p-5 text-left font-semibold text-brand-text hover:bg-gray-50 transition-colors"
             >
               <span className="min-w-0">{item.q}</span>
-              <span className="text-brand-primary text-xl flex-shrink-0">
+              <span className="text-brand-orangeText text-xl flex-shrink-0">
                 {open === i ? "−" : "+"}
               </span>
             </button>

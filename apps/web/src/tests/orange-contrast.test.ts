@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
+import colors from "tailwindcss/colors";
 import { contrastRatio } from "@/lib/contrast";
 
 const webRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
@@ -292,5 +293,365 @@ describe("contraste do laranja com texto branco", () => {
     expect(header).toContain("sticky top-0");
     expect(header.indexOf("<StoreContactPair")).toBeGreaterThan(headerClose);
     expect(header.slice(headerClose)).not.toContain("sticky");
+  });
+});
+
+const GRAY_50 = (colors.gray as Record<string, string>)["50"].toLowerCase();
+const GRAY_100 = (colors.gray as Record<string, string>)["100"].toLowerCase();
+const GRAY_900 = (colors.gray as Record<string, string>)["900"].toLowerCase();
+
+/** Fundos escuros em que #ec6e37 continua válido como texto. */
+const DARK_CSS_BACKGROUNDS = new Set(["#0a0a0a", "#000000", GRAY_900, "#1f2937"]);
+
+/**
+ * Componentes sem fundo próprio: só entram no rodapé escuro.
+ * A varredura trata a raiz como escura e o teste confirma o único importador.
+ */
+const DARK_FRAGMENT_FILES = [
+  "components/layout/footer/FooterNav.tsx",
+  "components/layout/footer/SocialLinks.tsx",
+];
+
+const LIGHT_ORANGE_TEXT_COUNTS: Record<string, number> = {
+  "components/home/SocialProofSection.tsx": 1,
+  "components/home/StoreVisitSection.tsx": 2,
+  "components/home/FAQSection.tsx": 1,
+  "components/home/TrustBar.tsx": 1,
+  "components/ProductCard.tsx": 1,
+  "app/login/LoginForm.tsx": 1,
+  "app/cadastro/CadastroForm.tsx": 1,
+  "app/checkout/CheckoutPage.tsx": 3,
+  "components/layout/LegalPageLayout.tsx": 2,
+  "app/contato/page.tsx": 5,
+  "app/politica-privacidade/page.tsx": 1,
+  "app/termos-uso/page.tsx": 1,
+  "app/produtos/components/ProductPagination.tsx": 1,
+  "app/produtos/[slug]/ProductDetail.tsx": 13,
+};
+
+const DARK_ORANGE_TEXT_COUNTS: Record<string, number> = {
+  "components/home/HeroSection.tsx": 1,
+  "components/layout/Header.tsx": 7,
+  "components/layout/Footer.tsx": 6,
+  "components/layout/footer/FooterNav.tsx": 6,
+  "components/layout/footer/SocialLinks.tsx": 2,
+  "app/produtos/ProductListPage.tsx": 1,
+};
+
+function cssCustomProps(css: string): Record<string, string> {
+  const vars: Record<string, string> = {};
+  const pattern = /--([a-z0-9-]+):\s*([^;]+);/g;
+  let match: RegExpExecArray | null;
+  while ((match = pattern.exec(css)) !== null) {
+    vars[match[1]] = match[2].trim().toLowerCase();
+  }
+  return vars;
+}
+
+function resolveCustom(name: string, vars: Record<string, string>): string | null {
+  let value = vars[name];
+  const seen = new Set<string>();
+  while (value?.startsWith("var(--")) {
+    const next = value.match(/^var\(--([a-z0-9-]+)\)$/)?.[1];
+    if (!next || seen.has(next)) return null;
+    seen.add(next);
+    value = vars[next];
+  }
+  return value ?? null;
+}
+
+function utilityBase(token: string): string {
+  let rest = token.trim();
+  for (;;) {
+    const next = rest.replace(/^!/, "").replace(/^[\w-]+(?:\[[^\]]*\])?:/, "");
+    if (next === rest) return rest.replace(/^!/, "");
+    rest = next;
+  }
+}
+
+function isFailingOrangeText(token: string): boolean {
+  return /^text-(?:brand-(?:primary|secondary|accent)|\[#ec6e37\])(?:\/\d+)?$/i.test(utilityBase(token));
+}
+
+function backgroundKind(token: string): "light" | "dark" | null {
+  const base = utilityBase(token);
+  if (/^bg-(?:white|brand-background|gray-50|gray-100)$/i.test(base)) return "light";
+  if (/^bg-\[#(?:fff|ffffff|f9fafb|f3f4f6)\]$/i.test(base)) return "light";
+  if (/^bg-brand-(?:primary|secondary|accent)\/(?:[1-9]|[1-4]\d|50)$/i.test(base)) return "light";
+  if (/^bg-(?:black|brand-headerBg|brand-footerBg|gray-800|gray-900)$/i.test(base)) return "dark";
+  if (/^bg-\[#(?:0a0a0a|000|000000|111827|1f2937)\]$/i.test(base)) return "dark";
+  return null;
+}
+
+function quotedChunks(attrs: string): string[] {
+  const chunks: string[] = [];
+  const pattern = /"([^"]*)"|'([^']*)'|`([^`]*)`/g;
+  let match: RegExpExecArray | null;
+  while ((match = pattern.exec(attrs)) !== null) {
+    chunks.push(match[1] ?? match[2] ?? match[3] ?? "");
+  }
+  return chunks;
+}
+
+function tokensFromChunk(chunk: string): string[] {
+  return chunk.replace(/\$\{[^}]*\}/g, " ").split(/\s+/).filter(Boolean);
+}
+
+type JsxTag = { closing: boolean; name: string; attrs: string; selfClosing: boolean };
+
+function parseJsxTags(source: string): JsxTag[] {
+  const tags: JsxTag[] = [];
+  let i = 0;
+  while (i < source.length) {
+    const lt = source.indexOf("<", i);
+    if (lt === -1) break;
+    const next = source[lt + 1] ?? "";
+    if (!/[A-Za-z/]/.test(next)) {
+      i = lt + 1;
+      continue;
+    }
+    let j = lt + 1;
+    const closing = source[j] === "/";
+    if (closing) j += 1;
+    const nameStart = j;
+    while (j < source.length && /[\w.]/.test(source[j] ?? "")) j += 1;
+    const name = source.slice(nameStart, j);
+    if (!name) {
+      i = lt + 1;
+      continue;
+    }
+    let quote: string | null = null;
+    let brace = 0;
+    let selfClosing = false;
+    const attrStart = j;
+    let ended = false;
+    while (j < source.length) {
+      const c = source[j] ?? "";
+      if (quote) {
+        if (c === "\\") {
+          j += 2;
+          continue;
+        }
+        if (c === quote) quote = null;
+        j += 1;
+        continue;
+      }
+      if (c === '"' || c === "'" || c === "`") {
+        quote = c;
+        j += 1;
+        continue;
+      }
+      if (c === "{") {
+        brace += 1;
+        j += 1;
+        continue;
+      }
+      if (c === "}") {
+        brace = Math.max(0, brace - 1);
+        j += 1;
+        continue;
+      }
+      if (brace === 0 && c === "/" && source[j + 1] === ">") {
+        selfClosing = true;
+        j += 2;
+        ended = true;
+        break;
+      }
+      if (brace === 0 && c === ">") {
+        j += 1;
+        ended = true;
+        break;
+      }
+      j += 1;
+    }
+    if (!ended) break;
+    tags.push({
+      closing,
+      name,
+      attrs: closing ? "" : source.slice(attrStart, selfClosing ? j - 2 : j - 1),
+      selfClosing,
+    });
+    i = j;
+  }
+  return tags;
+}
+
+type SurfaceFrame = { name: string; light: boolean; dark: boolean };
+
+function elementSurface(ownLight: boolean, ownDark: boolean, stack: SurfaceFrame[]): "light" | "dark" {
+  if (ownDark && !ownLight) return "dark";
+  if (ownLight) return "light";
+  for (let index = stack.length - 1; index >= 0; index -= 1) {
+    const frame = stack[index];
+    if (frame.dark && !frame.light) return "dark";
+    if (frame.light) return "light";
+  }
+  return "light";
+}
+
+/** #ec6e37 como cor de texto ou ícone. Em fundo escuro não é violação. */
+function lightOrangeTextViolations(source: string, rootDark = false): string[] {
+  const cleaned = source.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:])\/\/.*$/gm, "$1");
+  const stack: SurfaceFrame[] = rootDark ? [{ name: "#root", light: false, dark: true }] : [];
+  const violations: string[] = [];
+  const inlineFailing = /color\s*:\s*["'](?:#ec6e37|var\(--brand-primary\))["']|(?:fill|stroke)\s*=\s*["']#ec6e37["']/i;
+
+  for (const tag of parseJsxTags(cleaned)) {
+    if (tag.closing) {
+      for (let index = stack.length - 1; index >= 0; index -= 1) {
+        if (stack[index].name === tag.name) {
+          stack.length = index;
+          break;
+        }
+      }
+      continue;
+    }
+
+    const tokens = quotedChunks(tag.attrs).flatMap(tokensFromChunk);
+    const failing = tokens.filter(isFailingOrangeText);
+    let ownLight = false;
+    let ownDark = false;
+    for (const token of tokens) {
+      const kind = backgroundKind(token);
+      if (kind === "light") ownLight = true;
+      if (kind === "dark") ownDark = true;
+    }
+    if ((failing.length > 0 || inlineFailing.test(tag.attrs)) && elementSurface(ownLight, ownDark, stack) === "light") {
+      violations.push(`${tag.name}: ${failing.join(" ") || "inline #ec6e37"}`);
+    }
+    if (!tag.selfClosing) stack.push({ name: tag.name, light: ownLight, dark: ownDark });
+  }
+  return violations;
+}
+
+function countUtility(source: string, utility: string): number {
+  return source.match(new RegExp(`(?:[\\w-]+:)*${utility}\\b`, "g"))?.length ?? 0;
+}
+
+function relSrc(file: string): string {
+  return path.relative(srcRoot, file).split(path.sep).join("/");
+}
+
+describe("contraste do laranja como texto sobre fundo claro", () => {
+  const css = fs.readFileSync(path.join(srcRoot, "app/globals.css"), "utf8");
+  const tailwind = fs.readFileSync(path.join(webRoot, "tailwind.config.ts"), "utf8");
+  const vars = cssCustomProps(css);
+  const rules = parseRules(css);
+  const orangeText = resolveCustom("brand-orange-text", vars);
+
+  it("aponta brand.orangeText para o mesmo #c2410c, sem hex solto", () => {
+    expect(GRAY_50).toBe("#f9fafb");
+    expect(GRAY_100).toBe("#f3f4f6");
+    expect(vars["brand-orange"]).toBe(ORANGE_TOKEN);
+    expect(vars["brand-orange-text"]).toBe("var(--brand-orange)");
+    expect(orangeText).toBe(ORANGE_TOKEN);
+    expect(css.match(/--brand-orange(?:-text)?:\s*#[0-9a-fA-F]{6}/g)).toEqual([`--brand-orange: ${ORANGE_TOKEN}`]);
+    expect(tailwind).toMatch(/orangeText:\s*"var\(--brand-orange-text\)"/);
+    expect(tailwind).toMatch(/orange:\s*"var\(--brand-orange\)"/);
+    expect(tailwind).not.toMatch(/orangeText:\s*"#/);
+  });
+
+  it("mede o token de texto sobre branco, gray-50 e gray-100 em pelo menos 4,5:1", () => {
+    expect(orangeText).toBe(ORANGE_TOKEN);
+    const surfaces = [
+      ["branco", "#ffffff", 5.18],
+      ["gray-50", GRAY_50, 4.96],
+      ["gray-100", GRAY_100, 4.71],
+    ] as const;
+    for (const [name, background, ratio] of surfaces) {
+      expect(roundRatio(orangeText!, background), name).toBe(ratio);
+      expect(roundRatio(orangeText!, background), name).toBeGreaterThanOrEqual(4.5);
+      expect(roundRatio(FAILING_ORANGE, background), `${FAILING_ORANGE} sobre ${name}`).toBeLessThan(4.5);
+    }
+    expect(roundRatio(FAILING_ORANGE, "#0a0a0a")).toBe(6.46);
+    expect(roundRatio(FAILING_ORANGE, "#0a0a0a")).toBeGreaterThanOrEqual(4.5);
+    expect(roundRatio(FAILING_ORANGE, GRAY_900)).toBeGreaterThanOrEqual(4.5);
+    expect(roundRatio(ORANGE_TOKEN, "#0a0a0a")).toBeLessThan(4.5);
+  });
+
+  it("barra #ec6e37 como cor de texto apenas sobre fundo claro", () => {
+    expect(lightOrangeTextViolations('<p className="text-brand-primary">loja</p>')).toEqual([
+      "p: text-brand-primary",
+    ]);
+    expect(lightOrangeTextViolations('<a className="bg-white text-brand-primary">link</a>')).toEqual([
+      "a: text-brand-primary",
+    ]);
+    expect(lightOrangeTextViolations('<a className="bg-gray-50 text-[#ec6e37]">link</a>')).toEqual([
+      "a: text-[#ec6e37]",
+    ]);
+    expect(lightOrangeTextViolations('<a className="bg-gray-100 hover:text-brand-secondary">link</a>')).toEqual([
+      "a: hover:text-brand-secondary",
+    ]);
+    expect(lightOrangeTextViolations('<span className="bg-brand-primary/10 text-brand-accent" />')).toEqual([
+      "span: text-brand-accent",
+    ]);
+    expect(
+      lightOrangeTextViolations(
+        '<button onClick={() => setOpen(true)} className="bg-white"><span className="text-brand-primary">+</span></button>'
+      )
+    ).toEqual(["span: text-brand-primary"]);
+    expect(lightOrangeTextViolations('<p className="text-brand-orangeText">ok</p>')).toEqual([]);
+    expect(
+      lightOrangeTextViolations('<section className="bg-black"><p className="text-brand-primary">hero</p></section>')
+    ).toEqual([]);
+    expect(
+      lightOrangeTextViolations(
+        '<header className="bg-brand-headerBg"><a className="hover:text-brand-primary">nav</a></header>'
+      )
+    ).toEqual([]);
+    expect(
+      lightOrangeTextViolations(
+        '<footer className="bg-brand-footerBg"><a className="text-brand-primary">Como chegar</a></footer>'
+      )
+    ).toEqual([]);
+    expect(
+      lightOrangeTextViolations(
+        '<div className="bg-gray-50"><section className="bg-gray-900"><p className="text-brand-primary">aviso</p></section></div>'
+      )
+    ).toEqual([]);
+
+    const footer = read("components/layout/Footer.tsx");
+    expect(footer).toContain("bg-brand-footerBg");
+    expect(footer).toContain("<SocialLinks");
+    expect(footer).toContain("<FooterNav");
+    for (const fragment of DARK_FRAGMENT_FILES) {
+      const base = path.basename(fragment, ".tsx");
+      const importers = walk(srcRoot).filter((file) => {
+        if (!file.endsWith(".tsx") || file.includes(`${path.sep}tests${path.sep}`)) return false;
+        if (relSrc(file) === fragment) return false;
+        return fs.readFileSync(file, "utf8").includes(`<${base}`);
+      });
+      expect(importers.map(relSrc), fragment).toEqual(["components/layout/Footer.tsx"]);
+      expect(lightOrangeTextViolations(read(fragment))).not.toEqual([]);
+      expect(lightOrangeTextViolations(read(fragment), true), fragment).toEqual([]);
+    }
+
+    const sourceFiles = walk(srcRoot).filter((file) => file.endsWith(".tsx") && !file.includes(`${path.sep}tests${path.sep}`));
+    for (const file of sourceFiles) {
+      const rel = relSrc(file);
+      const src = fs.readFileSync(file, "utf8");
+      expect(lightOrangeTextViolations(src, DARK_FRAGMENT_FILES.includes(rel)), rel).toEqual([]);
+      expect(countUtility(src, "text-brand-orangeText"), rel).toBe(LIGHT_ORANGE_TEXT_COUNTS[rel] ?? 0);
+      expect(countUtility(src, "text-brand-primary"), rel).toBe(DARK_ORANGE_TEXT_COUNTS[rel] ?? 0);
+      expect(countUtility(src, "text-brand-secondary"), rel).toBe(0);
+      expect(countUtility(src, "text-brand-accent"), rel).toBe(0);
+    }
+
+    const contato = read("app/contato/page.tsx");
+    expect(contato).toContain('className="inline-flex min-h-11 items-center text-brand-orangeText hover:underline"');
+    expect(contato).toContain("Como chegar");
+    const visit = read("components/home/StoreVisitSection.tsx");
+    const comoChegar = visit.slice(Math.max(0, visit.indexOf("Como chegar") - 220), visit.indexOf("Como chegar"));
+    expect(comoChegar).toContain("surface-brand-orange");
+    expect(comoChegar).not.toContain("text-brand-");
+    expect(footer).toContain("text-brand-primary");
+    expect(footer).toContain("Como chegar (Google Maps)");
+
+    for (const rule of rules) {
+      const foreground = resolveColor(rule.decls.color, vars);
+      if (foreground !== FAILING_ORANGE) continue;
+      const background = resolveColor(rule.decls["background-color"] ?? rule.decls.background, vars);
+      expect(background && DARK_CSS_BACKGROUNDS.has(background), rule.selector).toBe(true);
+    }
   });
 });

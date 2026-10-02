@@ -49,7 +49,7 @@ export function ProductCard({ product }: ProductCardProps) {
               {product.category.name}
             </span>
           )}
-          <h3 className="font-semibold text-sm sm:text-base text-gray-900 line-clamp-2 group-hover:text-brand-primary transition-colors mt-1">
+          <h3 className="font-semibold text-sm sm:text-base text-gray-900 line-clamp-2 group-hover:text-brand-orangeText transition-colors mt-1">
             {product.name}
           </h3>
           <div className="mt-2 flex flex-wrap items-center gap-1.5">
