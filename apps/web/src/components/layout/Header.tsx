@@ -65,6 +65,12 @@ export function Header() {
                 Produtos
               </Link>
               <Link
+                href="/oficina"
+                className="text-gray-200 hover:text-brand-primary transition-colors font-medium min-h-11 inline-flex items-center"
+              >
+                Oficina
+              </Link>
+              <Link
                 href="/contato"
                 className="text-gray-200 hover:text-brand-primary transition-colors font-medium min-h-11 inline-flex items-center"
               >
@@ -137,6 +143,14 @@ export function Header() {
       </header>
       <div className="bg-brand-headerBg border-b border-gray-800">
         <div className="max-w-container mx-auto px-3 sm:px-6">
+          <div className="md:hidden">
+            <Link
+              href="/oficina"
+              className="inline-flex min-h-11 items-center text-base font-medium text-gray-200 hover:text-brand-primary"
+            >
+              Oficina
+            </Link>
+          </div>
           <div className="grid grid-cols-1 gap-2 py-2 min-h-[7rem] sm:min-h-[3.75rem] sm:grid-cols-2 lg:flex lg:flex-wrap">
             <StoreContactPair line="claro" surface="onDark" linkClassName="flex-1 sm:flex-none">
               WhatsApp Claro

@@ -331,7 +331,7 @@ const LIGHT_ORANGE_TEXT_COUNTS: Record<string, number> = {
 
 const DARK_ORANGE_TEXT_COUNTS: Record<string, number> = {
   "components/home/HeroSection.tsx": 1,
-  "components/layout/Header.tsx": 7,
+  "components/layout/Header.tsx": 9,
   "components/layout/Footer.tsx": 6,
   "components/layout/footer/FooterNav.tsx": 6,
   "components/layout/footer/SocialLinks.tsx": 2,

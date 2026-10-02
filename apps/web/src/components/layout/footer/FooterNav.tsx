@@ -6,6 +6,7 @@ import { STORE, WHATSAPP } from "@/lib/site";
 const LOJA_LINKS = [
   { href: "/", label: "Início" },
   { href: "/produtos", label: "Produtos" },
+  { href: "/oficina", label: "Oficina" },
   { href: "/produtos?category=bicicletas", label: "Bicicletas" },
   { href: "/produtos?category=motos", label: "Motos" },
   { href: "/carrinho", label: "Carrinho" },

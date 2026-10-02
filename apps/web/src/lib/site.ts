@@ -92,6 +92,7 @@ export function siteUrl(path = ""): string {
 export const PUBLIC_PATHS = [
   "",
   "produtos",
+  "oficina",
   "contato",
   "aviso-legal",
   "politica-privacidade",
