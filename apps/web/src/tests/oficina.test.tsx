@@ -27,6 +27,8 @@ describe("página /oficina", () => {
     expect(decodeURIComponent(photo.getAttribute("src") ?? "")).toContain(
       "/images/oficina/manutencao-honda.jpg"
     );
+    expect(screen.getByText("Oficina da Bike Center Fartura")).toBeTruthy();
+    expect(read("app/oficina/page.tsx")).not.toMatch(/mesmo endereço/i);
     expect(photo.getAttribute("fetchpriority")).not.toBe("high");
 
     expect(screen.getByText(new RegExp(STORE.street))).toBeTruthy();

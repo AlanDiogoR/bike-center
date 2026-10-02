@@ -40,9 +40,7 @@ export default function OficinaPage() {
               className="object-cover object-center"
             />
           </div>
-          <figcaption className="mt-2 text-lg leading-snug">
-            Manutenção de moto Honda na bancada, no mesmo endereço da loja.
-          </figcaption>
+          <figcaption className="mt-2 text-lg leading-snug">Oficina da Bike Center Fartura</figcaption>
         </figure>
 
         <section className="mt-8" aria-labelledby="oficina-endereco">
