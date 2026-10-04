@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { siteUrl } from "@/lib/site";
-import { ProductListPage } from "./ProductListPage";
+import { ProductListPage, type ProductListSearchParams } from "./ProductListPage";
 
 export const metadata: Metadata = {
   title: "Motos, bikes e oficina em Fartura-SP",
@@ -12,10 +11,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ProdutosPage() {
-  return (
-    <Suspense fallback={<div className="min-h-screen bg-gray-50 animate-pulse" />}>
-      <ProductListPage />
-    </Suspense>
-  );
+export default function ProdutosPage({
+  searchParams,
+}: {
+  searchParams?: ProductListSearchParams;
+}) {
+  return <ProductListPage searchParams={searchParams} />;
 }

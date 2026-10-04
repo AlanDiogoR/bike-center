@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { HeroSection } from "@/components/home/HeroSection";
 import { COPY, siteUrl } from "@/lib/site";
 
@@ -16,11 +15,11 @@ import { BannersSection } from "@/components/home/BannersSection";
 import { StoreVisitSection } from "@/components/home/StoreVisitSection";
 import { FAQSection } from "@/components/home/FAQSection";
 import { InstagramSection } from "@/components/home/InstagramSection";
+import { ProductGrid } from "@/components/home/ProductGrid";
 import { websiteJsonLd } from "@/lib/jsonld";
 
-const ProductGrid = dynamic(() => import("@/components/home/ProductGrid").then((m) => ({ default: m.ProductGrid })), {
-  loading: () => <div className="h-64 animate-pulse bg-gray-100 rounded-xl" />,
-});
+/** Vitrine "Destaques" renderizada no servidor; revalida de hora em hora. */
+export const revalidate = 3600;
 
 export default function HomePage() {
   return (

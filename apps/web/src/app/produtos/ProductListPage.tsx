@@ -1,7 +1,3 @@
-"use client";
-
-import { useSearchParams } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
 import { getProducts, getCategories } from "@/lib/api";
 import { ProductCard } from "@/components/ProductCard";
 import { WhatsAppLink } from "@/components/contact/StoreContactLinks";
@@ -10,20 +6,38 @@ import { ProductFilters } from "./components/ProductFilters";
 import { ProductEmptyState } from "./components/ProductEmptyState";
 import { ProductPagination } from "./components/ProductPagination";
 
-export function ProductListPage() {
-  const searchParams = useSearchParams();
-  const page = Number(searchParams.get("page")) || 1;
-  const category = searchParams.get("category") ?? undefined;
-  const search = searchParams.get("search") ?? undefined;
-  const { data: productsData, isLoading, isError, error } = useQuery({
-    queryKey: ["products", { page, limit: 12, category, search }],
-    queryFn: () => getProducts({ page, limit: 12, category, search }),
-  });
+export const CATALOG_H1 = "Catálogo de motos, bikes e peças em Fartura-SP";
 
-  const { data: categoriesData } = useQuery({
-    queryKey: ["categories"],
-    queryFn: () => getCategories(),
-  });
+export interface ProductListSearchParams {
+  page?: string | string[];
+  category?: string | string[];
+  search?: string | string[];
+}
+
+function first(value: string | string[] | undefined): string | undefined {
+  const v = Array.isArray(value) ? value[0] : value;
+  return v ? v : undefined;
+}
+
+/** Server component: a lista e os links /produtos/<slug> já vêm no HTML inicial. */
+export async function ProductListPage({
+  searchParams = {},
+}: {
+  searchParams?: ProductListSearchParams;
+}) {
+  const rawPage = Number(first(searchParams.page));
+  const page = Number.isFinite(rawPage) && rawPage >= 1 ? Math.floor(rawPage) : 1;
+  const category = first(searchParams.category);
+  const search = first(searchParams.search);
+
+  let productsData: Awaited<ReturnType<typeof getProducts>> | undefined;
+  let isError = false;
+  try {
+    productsData = await getProducts({ page, limit: 12, category, search });
+  } catch {
+    isError = true;
+  }
+  const categoriesData = await getCategories().catch(() => undefined);
 
   const products = productsData?.data ?? [];
   const meta = productsData?.meta;
@@ -38,7 +52,7 @@ export function ProductListPage() {
               ? `Busca: ${search}`
               : category
                 ? categories.find((c) => c.slug === category)?.name ?? "Produtos"
-                : "Catálogo"}
+                : CATALOG_H1}
           </h1>
           <p className="text-gray-300 text-sm sm:text-base max-w-2xl">
             Motos, bikes, peças e oficina — loja física em Fartura-SP.
@@ -50,23 +64,7 @@ export function ProductListPage() {
       <ProductFilters categories={categories} category={category} search={search} />
 
       <div className="max-w-container mx-auto px-4 sm:px-6 py-10">
-        {isLoading ? (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-            {[...Array(8)].map((_, i) => (
-              <div
-                key={i}
-                className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 h-96 animate-pulse"
-              >
-                <div className="aspect-square bg-gray-200" />
-                <div className="p-4 space-y-3">
-                  <div className="h-4 bg-gray-200 rounded w-3/4" />
-                  <div className="h-4 bg-gray-200 rounded w-1/2" />
-                  <div className="h-8 bg-gray-200 rounded w-1/3" />
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : isError ? (
+        {isError ? (
           <div className="bg-white border border-gray-200 rounded-xl p-8 text-center">
             <p className="text-brand-text font-medium mb-2">Catálogo indisponível no momento.</p>
             <p className="text-gray-600 text-sm mb-6">
@@ -85,11 +83,6 @@ export function ProductListPage() {
                 {COPY.ctaMercadoLivre}
               </a>
             </div>
-            {process.env.NODE_ENV === "development" && (
-              <p className="text-gray-400 text-xs mt-4">
-                {error instanceof Error ? error.message : "Erro desconhecido"}
-              </p>
-            )}
           </div>
         ) : products.length === 0 ? (
           <ProductEmptyState hasCategory={Boolean(category)} />
