@@ -1,30 +1,12 @@
-"use client";
-
-import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "@/lib/api";
 import { ProductCard } from "@/components/ProductCard";
 import { WhatsAppLink } from "@/components/contact/StoreContactLinks";
 import { COPY, STORE } from "@/lib/site";
 
-export function ProductGrid() {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["products", { page: 1, limit: 12 }],
-    queryFn: () => getProducts({ page: 1, limit: 12 }),
-  });
-
-  if (isLoading) {
-    return (
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-        {[...Array(4)].map((_, i) => (
-          <div
-            key={i}
-            className="h-80 bg-gray-200 animate-pulse rounded-[12px]"
-            aria-hidden
-          />
-        ))}
-      </div>
-    );
-  }
+/** Server component: os cards (com <a href="/produtos/<slug>">) já saem no HTML do servidor. */
+export async function ProductGrid() {
+  const data = await getProducts({ page: 1, limit: 12 }).catch(() => undefined);
+  const isError = data === undefined;
 
   const products = data?.data ?? [];
 
