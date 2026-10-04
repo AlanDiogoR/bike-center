@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import { WhatsAppLink } from "@/components/contact/StoreContactLinks";
-import { STORE, WHATSAPP, siteUrl } from "@/lib/site";
+import { routeMetadata } from "@/lib/metadata";
+import { STORE, WHATSAPP } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Contato da loja em Fartura-SP",
-  description: `Fale com a Bike Center em Fartura-SP: motos, bikes e oficina na ${STORE.street}. WhatsApp Claro ${WHATSAPP.claro.display} e Vivo ${WHATSAPP.vivo.display}. ${STORE.hoursShort}.`,
-  alternates: {
-    canonical: siteUrl("contato"),
-  },
-};
+const title = "Contato e endereço — Bike Center Fartura";
+const description = `Fale com a Bike Center em Fartura-SP: motos, bikes e oficina na ${STORE.street}. WhatsApp Claro ${WHATSAPP.claro.display} e Vivo ${WHATSAPP.vivo.display}. ${STORE.hoursShort}.`;
+
+export const metadata: Metadata = routeMetadata({
+  title: { absolute: title },
+  fullTitle: title,
+  description,
+  path: "contato",
+});
 
 export default function ContatoPage() {
   return (
