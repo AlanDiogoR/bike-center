@@ -41,6 +41,7 @@ export function Header() {
                 <Image
                   src="/logo.svg"
                   alt="Bike Center Fartura"
+                  loading="eager"
                   fill
                   sizes="48px"
                   className="object-contain invert"

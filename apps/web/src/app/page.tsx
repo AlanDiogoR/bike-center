@@ -17,6 +17,7 @@ import { StoreVisitSection } from "@/components/home/StoreVisitSection";
 import { FAQSection } from "@/components/home/FAQSection";
 import { InstagramSection } from "@/components/home/InstagramSection";
 import { websiteJsonLd } from "@/lib/jsonld";
+import { faqJsonLd } from "@/lib/faq";
 
 const ProductGrid = dynamic(() => import("@/components/home/ProductGrid").then((m) => ({ default: m.ProductGrid })), {
   loading: () => <div className="h-64 animate-pulse bg-gray-100 rounded-xl" />,
@@ -29,6 +30,12 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(websiteJsonLd()),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqJsonLd()),
         }}
       />
       <HeroSection />

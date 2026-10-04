@@ -1,30 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { COPY, STORE, WHATSAPP } from "@/lib/site";
-
-const FAQ_ITEMS = [
-  {
-    q: "Como faço para comprar?",
-    a: "Peça orçamento no WhatsApp ou compre pelo Mercado Livre. Também pode retirar na loja em Fartura-SP, na Rua Mário Stella, 355.",
-  },
-  {
-    q: "Posso retirar na loja?",
-    a: `Sim. ${STORE.street}, ${STORE.city}/${STORE.state}. ${STORE.hoursShort}.`,
-  },
-  {
-    q: "Como funciona o envio?",
-    a: "Enviamos pelo Mercado Livre para o Brasil. Compras acima de R$ 250 — frete grátis via Mercado Livre (Brasil). Ou retire na loja em Fartura.",
-  },
-  {
-    q: "Posso trocar ou devolver?",
-    a: COPY.returns,
-  },
-  {
-    q: "Qual o WhatsApp da loja?",
-    a: `Claro ${WHATSAPP.claro.display} e Vivo ${WHATSAPP.vivo.display}. ${COPY.supportHours}`,
-  },
-];
+import { WHATSAPP, COPY } from "@/lib/site";
+import { FAQ_ITEMS } from "@/lib/faq";
 
 export function FAQSection() {
   const [open, setOpen] = useState<number | null>(0);
