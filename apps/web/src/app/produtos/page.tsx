@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { siteUrl } from "@/lib/site";
+import { routeMetadata } from "@/lib/metadata";
 import { ProductListPage } from "./ProductListPage";
 
-export const metadata: Metadata = {
-  title: "Motos, bikes e oficina em Fartura-SP",
-  description:
-    "Catálogo da Bike Center em Fartura-SP: motos, bikes, peças e oficina. Loja na Rua Mário Stella, 355. Retire na loja ou envio pelo Mercado Livre.",
-  alternates: {
-    canonical: siteUrl("produtos"),
-  },
-};
+const title = "Catálogo de motos, bikes e peças";
+const description =
+  "Veja motos, bicicletas, capacetes e peças da Bike Center em Fartura-SP. Peça orçamento no WhatsApp ou retire na loja.";
+
+export const metadata: Metadata = routeMetadata({
+  title,
+  fullTitle: `${title} | Bike Center Fartura`,
+  description,
+  path: "produtos",
+});
 
 export default function ProdutosPage() {
   return (

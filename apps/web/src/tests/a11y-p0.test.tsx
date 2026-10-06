@@ -104,14 +104,14 @@ describe("SEO local nas páginas-chave", () => {
     expect(home).toContain("COPY.metaDescription");
 
     const produtos = read("app/produtos/page.tsx");
-    expect(produtos).toContain('canonical: siteUrl("produtos")');
+    // PR-3: canonical/OG saem de routeMetadata({ path }); title/description do SITE-SEO-RECOMENDADO §2.
+    expect(produtos).toContain('path: "produtos"');
     expect(produtos).toContain("Fartura-SP");
     expect(produtos).toMatch(/motos/i);
     expect(produtos).toMatch(/bikes/i);
-    expect(produtos).toMatch(/oficina/i);
 
     const contato = read("app/contato/page.tsx");
-    expect(contato).toContain('canonical: siteUrl("contato")');
+    expect(contato).toContain('path: "contato"');
     expect(contato).toContain("Fartura-SP");
     expect(contato).toMatch(/motos/i);
     expect(contato).toMatch(/bikes/i);

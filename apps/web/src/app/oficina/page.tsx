@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { CallLink, WhatsAppLink } from "@/components/contact/StoreContactLinks";
-import { STORE, WHATSAPP, siteUrl } from "@/lib/site";
+import { routeMetadata } from "@/lib/metadata";
+import { STORE, WHATSAPP } from "@/lib/site";
 
 const title = "Oficina de bikes e motos em Fartura-SP";
 const description =
   "Manutenção de bikes e motos na oficina da Bike Center em Fartura-SP. Chame no WhatsApp ou ligue para combinar o horário.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = routeMetadata({
   title,
+  fullTitle: `${title} | Bike Center Fartura`,
   description,
-  alternates: {
-    canonical: siteUrl("oficina"),
-  },
-};
+  path: "oficina",
+});
 
 const WORKSHOP_PHOTO = {
   src: "/images/oficina/manutencao-honda.jpg",
