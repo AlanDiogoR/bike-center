@@ -43,6 +43,21 @@ export const WHATSAPP = {
 
 export type WhatsAppLine = keyof typeof WHATSAPP;
 
+/**
+ * Telefone fixo da loja — uso exclusivo em dados estruturados (JSON-LD).
+ * Não exibir na UI: nenhum botão, texto ou link `tel:` deve usar esta constante.
+ */
+export const LANDLINE = {
+  e164: "551433822733",
+} as const;
+
+/** Telefones publicados no JSON-LD, na ordem: Claro, Vivo, fixo. */
+export const SCHEMA_TELEPHONES = [
+  `+${WHATSAPP.claro.e164}`,
+  `+${WHATSAPP.vivo.e164}`,
+  `+${LANDLINE.e164}`,
+] as const;
+
 /** href exato `tel:+E.164` — mesma dupla do JSON-LD e dos botões de WhatsApp. */
 export function telHref(line: WhatsAppLine): string {
   return `tel:+${WHATSAPP[line].e164}`;
