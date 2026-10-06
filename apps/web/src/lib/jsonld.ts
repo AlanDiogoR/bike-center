@@ -1,5 +1,5 @@
 import { galleryImages } from "./product-images";
-import { STORE, WHATSAPP, getSiteUrl, siteUrl } from "./site";
+import { SCHEMA_TELEPHONES, STORE, getSiteUrl, siteUrl } from "./site";
 
 export interface ProductJsonLdInput {
   name: string;
@@ -40,7 +40,7 @@ export function productJsonLd(product: ProductJsonLdInput) {
       seller: {
         "@type": "LocalBusiness",
         name: STORE.name,
-        telephone: [`+${WHATSAPP.claro.e164}`, `+${WHATSAPP.vivo.e164}`],
+        telephone: [...SCHEMA_TELEPHONES],
         address: {
           "@type": "PostalAddress",
           streetAddress: STORE.street,
@@ -79,7 +79,7 @@ export function localBusinessJsonLd() {
     logo: siteUrl("/logo.svg"),
     description: `${STORE.tagline} — motos, bikes, peças e oficina em ${STORE.city}-${STORE.state}.`,
     email: STORE.email,
-    telephone: [`+${WHATSAPP.claro.e164}`, `+${WHATSAPP.vivo.e164}`],
+    telephone: [...SCHEMA_TELEPHONES],
     address: {
       "@type": "PostalAddress",
       streetAddress: STORE.street,

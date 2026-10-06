@@ -1,6 +1,19 @@
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { breadcrumbJsonLd, localBusinessJsonLd, productJsonLd, websiteJsonLd } from "@/lib/jsonld";
-import { STORE, WHATSAPP } from "@/lib/site";
+import { LANDLINE, SCHEMA_TELEPHONES, STORE, WHATSAPP } from "@/lib/site";
+
+const srcRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+
+function walk(dir: string): string[] {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) return walk(full);
+    return full;
+  });
+}
 
 describe("JSON-LD LocalBusiness", () => {
   it("mantém NAP, WhatsApp Claro/Vivo e endereço de Fartura", () => {
@@ -12,7 +25,7 @@ describe("JSON-LD LocalBusiness", () => {
     expect(data.address.postalCode).toBe("18870-000");
     expect(WHATSAPP.claro.e164).toBe("5514991667793");
     expect(WHATSAPP.vivo.e164).toBe("5514996325919");
-    expect(data.telephone).toEqual(["+5514991667793", "+5514996325919"]);
+    expect(data.telephone).toEqual(["+5514991667793", "+5514996325919", "+551433822733"]);
     expect(data["@type"]).toContain("Store");
     expect(data.description).toContain("Fartura-SP");
     expect(data.description).toMatch(/motos/i);
@@ -71,7 +84,7 @@ describe("JSON-LD Product e Breadcrumb", () => {
     expect(data.offers.priceCurrency).toBe("BRL");
     expect(data.offers.availability).toBe("https://schema.org/InStock");
     expect(data.offers.seller["@type"]).toBe("LocalBusiness");
-    expect(data.offers.seller.telephone).toEqual(["+5514991667793", "+5514996325919"]);
+    expect(data.offers.seller.telephone).toEqual(["+5514991667793", "+5514996325919", "+551433822733"]);
     expect(data.offers.seller.address.streetAddress).toBe(STORE.street);
     expect(JSON.stringify(data)).not.toContain("aggregateRating");
     expect(data.url).toMatch(/\/produtos\/honda-bros-azul$/);
@@ -101,6 +114,27 @@ describe("JSON-LD Product e Breadcrumb", () => {
     expect(data.itemListElement[2]?.item).toMatch(/\/produtos\/honda-bros-azul$/);
     for (const item of data.itemListElement) {
       expect(String(item.item).split("://")[1]).not.toContain("//");
+    }
+  });
+});
+
+describe("Telefone fixo só no JSON-LD", () => {
+  it("publica Claro, Vivo e fixo nessa ordem", () => {
+    expect(LANDLINE.e164).toBe("551433822733");
+    expect(SCHEMA_TELEPHONES).toEqual(["+5514991667793", "+5514996325919", "+551433822733"]);
+  });
+
+  it("nenhum componente de UI renderiza o fixo", () => {
+    const uiFiles = [...walk(path.join(srcRoot, "app")), ...walk(path.join(srcRoot, "components"))].filter(
+      (file) => /\.(tsx?|jsx?|mdx?)$/.test(file)
+    );
+    expect(uiFiles.length).toBeGreaterThan(0);
+    const forbidden = [/LANDLINE/, /SCHEMA_TELEPHONES/, /3382[\s.-]?2733/];
+    for (const file of uiFiles) {
+      const src = fs.readFileSync(file, "utf8");
+      for (const pattern of forbidden) {
+        expect(src, `${path.relative(srcRoot, file)} não pode exibir o fixo (${pattern})`).not.toMatch(pattern);
+      }
     }
   });
 });
