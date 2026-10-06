@@ -115,7 +115,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
                   >
                     <Image
                       src={img}
-                      alt=""
+                      alt={`${product.name} — foto ${i + 1}`}
                       fill
                       sizes="80px"
                       className={`pointer-events-none object-contain object-center ${

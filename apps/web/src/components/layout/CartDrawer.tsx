@@ -33,9 +33,9 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
       >
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between p-4 border-b">
-            <h2 className="font-heading font-bold text-lg uppercase tracking-[0.015em]">
+            <p className="font-heading font-bold text-lg uppercase tracking-[0.015em]">
               Carrinho ({totalItems()})
-            </h2>
+            </p>
             <button
               type="button"
               onClick={onClose}
